@@ -1,12 +1,17 @@
-//TODO UJjwal
 import React, { useState } from "react";
-function LoginScreen(){
+
+function LoginScreen() {
     const [id, setId] = useState("");
     const [pass, setPass] = useState("");
 
-    const onRequest = (event) => {
+    const onLogin = (event) => {
         event.preventDefault();
-        
+
+    }
+
+    const onRequestAccess = (event) => {
+        event.preventDefault();
+
     }
 
     return (
@@ -25,10 +30,10 @@ function LoginScreen(){
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button class="" onClick={(event) => onRequest(event)}>Login</button></td>
+                    <td><button onClick={(event) => onLogin(event)}>Login</button></td>
                 </tr>
             </form>
-            <p>New User? Request Access</p>
+            <p className="d-flex">New User?<a onClick={(event) => onRequestAccess(event)}>Request Access</a></p>
         </div>
 
     );
