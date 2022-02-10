@@ -1,40 +1,37 @@
 //TODO UJjwal
-import { Button } from "bootstrap";
-import React, { Component } from "react";
-class LoginScreen extends Component {
-    constructor() {
-        super();
-        this.state = {
+import React, { useState } from "react";
+function LoginScreen(){
+    const [id, setId] = useState("");
+    const [pass, setPass] = useState("");
 
-        }
+    const onRequest = (event) => {
+        event.preventDefault();
+        
     }
 
-    componentDidMount() {
-
-    }
-
-
-    render() {
-        return (
-            <div className="main text-center">
-                <div className="">
-                    <h1 className="border border-3 border-dark py-3 px-5">AssetMark - Shift Allowance App</h1>
-                </div>
-                <div>
-                    <div className="">
-                        <p className="fw-bold">User ID</p>
-                        <input></input>
-                    </div>
-                    <div>
-                        <p className="fw-bold">Password</p>
-                        <input></input>
-                    </div>
-                    <button type="button" class="btn btn-light border-dark px-3 py-1 border-2">Login</button>
-                    <p>New User? Request Access</p>
-                </div>
+    return (
+        <div className="">
+            <div className="">
+                <h1 className="">AssetMark - Shift Allowance App</h1>
             </div>
-        );
-    }
+            <form className="">
+                <tr>
+                    <td className="">User Id:</td>
+                    <td><input type="email" value={id} onChange={(data) => setId(data.target.value)} required /></td>
+                </tr>
+                <tr>
+                    <td className="">Password:</td>
+                    <td><input type="password" value={pass} onChange={(data) => setPass(data.target.value)} required /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="" onClick={(event) => onRequest(event)}>Login</button></td>
+                </tr>
+            </form>
+            <p>New User? Request Access</p>
+        </div>
+
+    );
 }
 
 export default LoginScreen;
