@@ -30,6 +30,7 @@ class LoginScreen extends Component {
                         <input></input>
                     </div>
                     <button type="button" class="btn btn-light border-dark px-3 py-1 border-2">Login</button>
+                    <p>New User? Request Access</p>
                 </div>
             </div>
         );
