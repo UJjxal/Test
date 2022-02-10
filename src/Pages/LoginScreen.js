@@ -16,7 +16,7 @@ function LoginScreen(){
             </div>
             <form className="">
                 <tr>
-                    <td className="">User Id:</td>
+                    <td className="">User ID:</td>
                     <td><input type="email" value={id} onChange={(data) => setId(data.target.value)} required /></td>
                 </tr>
                 <tr>
