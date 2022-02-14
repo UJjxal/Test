@@ -16,9 +16,7 @@ function LoginScreen() {
 
     return (
         <div className="">
-            <div className="">
-                <h1 className="">AssetMark - Shift Allowance App</h1>
-            </div>
+            <h1 className="border border-2 border-dark">AssetMark - Shift Allowance App</h1>
             <form className="">
                 <tr>
                     <td className="">User ID:</td>

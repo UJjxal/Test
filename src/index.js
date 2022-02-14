@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import LoginScreen from './Pages/LoginScreen';
+import Admin from './Pages/Admin';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <LoginScreen/>
+    <Admin/>
   </React.StrictMode>,
   document.getElementById('root')
 );
