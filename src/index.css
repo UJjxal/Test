@@ -20,3 +20,11 @@ code {
 #p-link:hover {
   text-decoration: underline;
 }
+
+.inputBox{
+  width: 25%;
+}
+
+.w-400px{
+  width: 400px;
+}

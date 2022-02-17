@@ -16,9 +16,9 @@ function LoginScreen() {
 
     return (
         <div className="container">
-            <h2 className="rounded shadow text-center mx-auto my-5  py-2 border border-1 border-dark fw">AssetMark - Shift Allowance App</h2>
+            <h2 className="rounded shadow text-center mx-auto my-5 py-2 border border-1 border-dark">AssetMark - Shift Allowance App</h2>
             <br></br>
-            <div className="rounded shadow text-center p-5 w-50 mx-auto mt-2">
+            <div className="rounded shadow text-center p-5  mx-auto mt-2 w-400px">
                 <input type="email" className="form-control border-dark fw-bold w-auto mx-auto" placeholder="User ID" value={id}
                     onChange={(data) => setId(data.target.value)} required ></input>
                 <input type="password" className="form-control border-dark fw-bold mt-2 w-auto mx-auto"
@@ -26,9 +26,9 @@ function LoginScreen() {
                 <button type="submit" className="btn btn-primary mt-4" onClick={(event) => onLogin(event)}>Login
                 </button>
                 <hr/>
-                <div className="d-inline-flex">
-                    <p>New User?</p>
-                    <p className="text-primary ms-2" id="p-link" onClick={(event) => onRequestAccess(event)}>Request Access</p>
+                <div className="d-inline-flex ">
+                    <p className="mb-0">New User?</p>
+                    <p className="text-primary ms-2 mb-0" id="p-link" onClick={(event) => onRequestAccess(event)}>Request Access</p>
                 </div>
             </div>
         </div>
