@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   cursor: default;
+
 }
 
 code {
@@ -21,10 +22,10 @@ code {
   text-decoration: underline;
 }
 
-.inputBox{
+.inputBox {
   width: 25%;
 }
 
-.w-400px{
+.w-400px {
   width: 400px;
 }
