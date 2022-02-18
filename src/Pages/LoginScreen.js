@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Link} from 'react-router-dom';
 
 function LoginScreen() {
     const [id, setId] = useState("");
@@ -6,7 +7,7 @@ function LoginScreen() {
 
     const onLogin = (event) => {
         event.preventDefault();
-
+        
     }
 
     const onRequestAccess = (event) => {
@@ -27,8 +28,8 @@ function LoginScreen() {
                 </button>
                 <hr/>
                 <div className="d-inline-flex ">
-                    <p className="mb-0">New User?</p>
-                    <p className="text-primary ms-2 mb-0" id="p-link" onClick={(event) => onRequestAccess(event)}>Request Access</p>
+                    <p className="mb-0">New User ?</p>
+                    <Link to="/RequestAccess"> Request Access</Link>
                 </div>
             </div>
         </div>
