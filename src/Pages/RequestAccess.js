@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import {Link } from 'react-router-dom';
 
 export default function RequestAccess() {
 
@@ -13,7 +13,8 @@ export default function RequestAccess() {
     }
 
     return (
-        <div className='container py-5'>
+        <div className='container'>
+            <h2 className="rounded shadow text-center mx-auto my-5 py-2 border border-1 border-dark">AssetMark - Shift Allowance App</h2>
             <div className="rounded mt-5 shadow text-center p-5 w-400px mx-auto">
                 <input type="email" className="inputBox form-control border-dark fw-bold" placeholder="User ID"
                     value={id} onChange={(data) => setId(data.target.value)} required></input>
@@ -29,6 +30,11 @@ export default function RequestAccess() {
                 <br></br>
                 <button type="submit" className="btn btn-primary" onClick={(event) => onRequest(event)}>Request Access
                 </button>
+                <hr/>
+                <div className="d-inline-flex ">
+                    <p className="mb-0">Already have account ?</p>
+                    <Link to="/Login">Login</Link>
+                </div>
             </div>
         </div>
     );
