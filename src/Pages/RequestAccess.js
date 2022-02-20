@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function RequestAccess() {
-
 
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -30,10 +29,10 @@ export default function RequestAccess() {
                 <br></br>
                 <button type="submit" className="btn btn-primary" onClick={(event) => onRequest(event)}>Request Access
                 </button>
-                <hr/>
+                <hr />
                 <div className="d-inline-flex ">
-                    <p className="mb-0">Already have account ?</p>
-                    <Link to="/Login">Login</Link>
+                    <p className="mb-0">Already have account?</p>
+                    <Link to="/" className='ms-1'>Login</Link>
                 </div>
             </div>
         </div>

@@ -1,7 +1,17 @@
+import $ from 'jquery'
+import { useNavigate } from "react-router";
+
 function Admin() {
+
+    const navigate = useNavigate();
+
 
     const onConfirm = (event) => {
 
+    }
+
+    const onLogout = (event) => {
+        navigate("/")
     }
 
     const fakeEntries = [
@@ -26,7 +36,7 @@ function Admin() {
             "name": "Petronia",
             "date": "1999-08-20",
             "role": "Developer",
-            "status": "Active",
+            "status": "Inactive",
             "cnf": "0"
         },
         {
@@ -34,7 +44,7 @@ function Admin() {
             "name": "Marcy",
             "date": "1992-10-05",
             "role": "Developer",
-            "status": "Active",
+            "status": "Inactive",
             "cnf": "0"
         },
         {
@@ -42,7 +52,7 @@ function Admin() {
             "name": "Starla",
             "date": "1986-11-24",
             "role": "Developer",
-            "status": "Pending",
+            "status": "Active",
             "cnf": "0"
         },
         {
@@ -55,18 +65,38 @@ function Admin() {
         }
     ];
 
+    $(document).ready(function () {
+        for (let index = 0; index < fakeEntries.length; index++) {
+            if (fakeEntries.at(index).status != "Pending") {
+                $("#" + fakeEntries.at(index).userId + "btn").prop("disabled", true);
+            }
+        }
+    });
+
+    fakeEntries.sort(sortItem);
+
+    function sortItem(a, b) {
+        var aName = a.status.toLowerCase();
+        var bName = b.status.toLowerCase();
+        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+    }
+
     return (
-        <div className="container text-center">
+        <div className="container">
             <h1 className="rounded shadow-sm text-center mx-auto my-3 py-2 border border-1 border-dark">User Administration</h1>
-            <table className="table table-hover table-bordered mt-5">
-                <thead>
+            <div className="infoBar d-flex px-3 py-2">
+                <p className='mb-0'>Name</p>|<p className='mb-0'>User ID</p>
+                <button className='ms-auto btn btn-danger px-1 py-0' onClick={(data) => { onLogout(data.target.value) }}>Logout</button>
+            </div>
+            <table className="table table-hover table-bordered mt-3 table-striped text-center">
+                <thead className='table-dark'>
                     <tr>
                         <td>User ID</td>
                         <td>Name</td>
                         <td>Active From</td>
                         <td>Role</td>
                         <td>Status</td>
-                        <td></td>
+                        <td>Confirm</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,7 +107,7 @@ function Admin() {
                             <td>{obj.date}</td>
                             <td>{obj.role}</td>
                             <td>{obj.status}</td>
-                            <td><button value={"UserID"} onClick={(data) => { onConfirm(data.target.value) }}>Confirm</button></td>
+                            <td><button id={obj.userId + "btn"} className="btn btn-primary" value={"UserID"} onClick={(data) => { onConfirm(data.target.value) }}>Confirm</button></td>
                         </tr>
                     })}
                 </tbody>

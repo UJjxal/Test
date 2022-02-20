@@ -1,25 +1,6 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.container{
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   cursor: default;
-
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-#p-link {
-  cursor: pointer;
-}
-
-#p-link:hover {
-  text-decoration: underline;
 }
 
 .inputBox {
@@ -28,4 +9,9 @@ code {
 
 .w-400px {
   width: 400px;
+}
+
+.infoBar{
+  background-color: #2f3d4b;
+  color: white;
 }

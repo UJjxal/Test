@@ -1,6 +1,11 @@
-import $ from 'jquery'
+import React, { useState } from 'react';
+import { useNavigate } from "react-router";
+
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
 export default function Dashboard() {
+    const navigate = useNavigate();
+
 
     const fakeEntries = [
         {
@@ -22,10 +27,20 @@ export default function Dashboard() {
         },
     ];
 
+    const onLogout = (event) => {
+        navigate("/")
+    }
+
+    const [value, onChange] = useState([new Date(), new Date()]);
+
     return (
         <div className="container">
             <h1 className="rounded shadow-sm text-center mx-auto my-3 py-2 border border-1 border-dark">Allowance Dashboard</h1>
-            <div className="row">
+            <div className="infoBar d-flex px-3 py-2">
+                <p className='mb-0'>Name</p>|<p className='mb-0'>User ID</p>
+                <button className='ms-auto btn btn-danger px-1 py-0' onClick={(data) => { onLogout(data.target.value) }}>Logout</button>
+            </div>
+            <div className="row mt-3">
                 <div className="col text-center">
                     <h6>Project</h6>
                     <select className="form-control w-50 mx-auto text-center">
@@ -38,17 +53,12 @@ export default function Dashboard() {
                 </div>
                 <div className="col text-center">
                     <h6>Time Period</h6>
-                    <select className="form-control w-50 mx-auto text-center">
-                        <option value={""} disabled> --- Start date - End date ---</option>
-                        <option value={""}>10 Jan, 2021 - 20 Mar, 2021</option>
-                        <option value={""}>15 Oct, 2021 - 20 Dec, 2021</option>
-                        <option value={""}>10 Jan, 2022 - 10 Apr, 2022</option>
-                    </select>
+                    <DateRangePicker className=" mx-auto text-center" onChange={onChange} value={value} />
                 </div>
             </div>
-
-            <table className="table table-hover table-bordered mt-5">
-                <thead>
+            
+            <table className="table table-hover table-bordered mt-3 table-striped">
+                <thead className='table-dark'>
                     <tr>
                         <th>Name</th>
                         <th>SAP ID</th>

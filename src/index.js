@@ -13,19 +13,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-<<<<<<< HEAD
-        <Route path="/" element={<LoginScreen />}>
-          <Route path="RequestAccess" element={<RequestAccess />} />
-          <Route path="Dashboard" element={<Dashboard />} />
-          <Route path="Admin" element={<Admin />} />
-        </Route>
-=======
-          <Route index path="/" element={<LoginScreen />}/>
-          <Route path="/Login" element={<LoginScreen />}/>
-          <Route path="/RequestAccess" element={<RequestAccess />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Admin" element={<Admin />} />
->>>>>>> ca620409c761526cd6a3fc96f41eb084c6549c2b
+        <Route index path="/" element={<LoginScreen />} />
+        <Route path="/Login" element={<LoginScreen />} />
+        <Route path="/RequestAccess" element={<RequestAccess />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
