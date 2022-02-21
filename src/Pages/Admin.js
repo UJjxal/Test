@@ -14,7 +14,7 @@ function Admin() {
         navigate("/")
     }
 
-    const fakeEntries = [
+    let fakeEntries = [
         {
             "userId": "1",
             "name": "Kenna",
@@ -73,11 +73,13 @@ function Admin() {
         }
     });
 
-    fakeEntries.sort(sortItem);
+    const sortName = () => {
+        fakeEntries = fakeEntries.sort(sortItem);
+    }
 
     function sortItem(a, b) {
-        var aName = a.status.toLowerCase();
-        var bName = b.status.toLowerCase();
+        var aName = a.name.toLowerCase();
+        var bName = b.name.toLowerCase();
         return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
     }
 
@@ -92,7 +94,7 @@ function Admin() {
                 <thead className='table-dark'>
                     <tr>
                         <td>User ID</td>
-                        <td>Name</td>
+                        <td >Name</td>
                         <td>Active From</td>
                         <td>Role</td>
                         <td>Status</td>
@@ -112,7 +114,7 @@ function Admin() {
                     })}
                 </tbody>
             </table>
-            <button className="btn btn-primary">Add</button>
+            <button className="btn btn-primary" onClick={() => sortName()}>Add</button>
         </div>
     )
 }

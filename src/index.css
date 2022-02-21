@@ -1,5 +1,5 @@
-.container{
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+.container {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   cursor: default;
 }
 
@@ -11,7 +11,35 @@
   width: 400px;
 }
 
-.infoBar{
+.infoBar {
   background-color: #2f3d4b;
   color: white;
+}
+
+.bgImg {
+  z-index: -1;
+  width: 100%;
+}
+
+.LSmain {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.LSform {
+  
+}
+
+.LScT {
+  color: #2651d6;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.LSsT {
+  font-size: 60px;
+  font-weight: lighter;
+  color: #305ed8;
 }

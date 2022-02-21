@@ -27,18 +27,17 @@ function LoginScreen() {
             } else {
                 navigate("/Admin")
             }
-            //
         }
-        //
     }
 
-
     return (
-        <div className="container">
-            <h2 className="rounded shadow text-center mx-auto my-5 py-2 border border-1 border-dark">AssetMark - Shift Allowance App</h2>
-            <br></br>
-            <form className="rounded shadow text-center p-5 w-400px mx-auto">
-                <input type="email" className=" inputBox form-control border-dark fw-bold mx-auto" placeholder="User ID" value={id}
+        <div className="LSmain">
+            <img src="./background.jpg" className="position-fixed bgImg "></img>
+            <form className="rounded shadow px-5 py-3 mx-5 bg-white LSform">
+                <p className="w-auto fw-bold LScT">AssetMark - Shift Allowance</p>
+                <p className="text-center LSsT mb-5">Sign In</p>
+                <br></br>
+                <input type="email" className=" inputBox form-control border-dark fw-bold mx-auto mt-5" placeholder="User ID" value={id}
                     onChange={(data) => setId(data.target.value)} required ></input>
                 <input type="password" className="inputBox form-control border-dark fw-bold mt-2 mx-auto"
                     placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />

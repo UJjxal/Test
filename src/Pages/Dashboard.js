@@ -6,7 +6,6 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 export default function Dashboard() {
     const navigate = useNavigate();
 
-
     const fakeEntries = [
         {
             "name": "abc", "sapId": "xxxxx", "projectHours": 160, "leaveHours": 0, "afternoonShiftDays": 20,
@@ -53,14 +52,14 @@ export default function Dashboard() {
                 </div>
                 <div className="col text-center">
                     <h6>Time Period</h6>
-                    <DateRangePicker className=" mx-auto text-center" onChange={onChange} value={value} />
+                    <DateRangePicker className="drp mx-auto text-center" onChange={onChange} value={value} />
                 </div>
             </div>
             
             <table className="table table-hover table-bordered mt-3 table-striped">
                 <thead className='table-dark'>
                     <tr>
-                        <th>Name</th>
+                        <th >Name</th>
                         <th>SAP ID</th>
                         <th>Project Hours</th>
                         <th>Holiday/Leave Hours</th>
