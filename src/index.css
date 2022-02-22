@@ -1,3 +1,7 @@
+body {
+  cursor: default;
+}
+
 .container {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   cursor: default;
@@ -24,22 +28,115 @@
 .LSmain {
   margin: 0 !important;
   padding: 0 !important;
-  position: relative;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  background: rgb(57, 188, 253);
+  background: linear-gradient(180deg, rgb(170, 227, 255) 0%, rgb(202, 173, 212) 100%);
 }
 
-.LSform {
-  
+.LSdes {
+  font-weight: 100;
 }
 
 .LScT {
   color: #2651d6;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: monospace;
 }
 
 .LSsT {
   font-size: 60px;
   font-weight: lighter;
   color: #305ed8;
+}
+
+.LSbtn {
+  background-color: #b251e0 !important;
+  border: 0 !important;
+  color: white;
+  padding: 10px 20px;
+}
+
+.LSbtn:hover {
+  background-color: #8f41b3 !important;
+  border-radius: 10px;
+  transition-duration: .3s;
+}
+
+.LSbs {
+  font-weight: 400;
+}
+
+.LSdiv {
+  position: relative;
+}
+
+.LSfm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px;
+}
+
+input:focus {
+  outline: 0;
+}
+
+.LSl:hover {
+  color: #8f41b3;
+}
+
+.LSin {
+  width: 250px !important;
+}
+
+.LSdd {
+  cursor: pointer;
+}
+
+.Ds {
+  cursor: pointer !important;
+}
+
+.Abtn {
+  background-color: #b251e0 !important;
+  border: 0 !important;
+  color: white;
+  height: 25px;
+  padding: 2px 20px !important;
+  font-size: 15px !important;
+}
+
+.Abtn:hover {
+  background-color: #8f41b3 !important;
+  transition-duration: .3s;
+}
+
+tr:nth-child(even):hover {
+  background-color: rgb(230, 230, 230) !important;
+}
+
+tr:nth-child(odd) {
+  background-color: rgb(240, 240, 240) !important;
+}
+
+tr:nth-child(odd):hover {
+  background-color: rgb(230, 230, 230) !important;
+}
+
+.Ds {
+  width: 250px;
+  height: 28px;
+  font-size: 15px;
+}
+
+.mainBtn {
+  background-color: #b251e0 !important;
+  border: 0 !important;
+  color: white;
+  padding: 10px 20px;
+}
+
+.mainBtn:hover {
+  background-color: #8f41b3 !important;
+  transition-duration: .3s;
 }

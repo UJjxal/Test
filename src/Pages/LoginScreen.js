@@ -20,9 +20,10 @@ function LoginScreen() {
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if (!regex.test(id)) {
             alert("Enter correct Email!!!")
+        } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
+            alert("Enter official ID")
         } else {
-            //check access level
-            if (id != "admin@gmail.com") {
+            if (id != "admin@incedoinc.com") {
                 navigate("/Dashboard");
             } else {
                 navigate("/Admin")
@@ -31,24 +32,28 @@ function LoginScreen() {
     }
 
     return (
-        <div className="LSmain">
-            <img src="./background.jpg" className="position-fixed bgImg "></img>
-            <form className="rounded shadow px-5 py-3 mx-5 bg-white LSform">
+        <div className="LSmain py-5">
+            {/* <img src="./background.jpg" className="position-fixed bgImg "></img> */}
+            <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100">
                 <p className="w-auto fw-bold LScT">AssetMark - Shift Allowance</p>
-                <p className="text-center LSsT mb-5">Sign In</p>
-                <br></br>
-                <input type="email" className=" inputBox form-control border-dark fw-bold mx-auto mt-5" placeholder="User ID" value={id}
-                    onChange={(data) => setId(data.target.value)} required ></input>
-                <input type="password" className="inputBox form-control border-dark fw-bold mt-2 mx-auto"
-                    placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
-                <button type="submit" className="btn btn-primary mt-4" onClick={(event) => onLogin(event)}>Login
-                </button>
-                <hr />
-                <div className="d-inline-flex ">
-                    <p className="mb-0">New User?</p>
-                    <Link to="/RequestAccess" className="ms-1">Request Access</Link>
-                </div>
-            </form>
+                <form className="text-center LSfm">
+                    <p className="text-center LSsT">Sign In</p>
+                    <p className="w-25 mx-auto LSdes">Hello there! Sign in and start managing your shift Allowance</p>
+                    <br></br>
+                    <input type="email" className=" p-1 border-dark fw-bold mx-auto mt-3 border-0 border-bottom LSin" placeholder="User ID" value={id}
+                        onChange={(data) => setId(data.target.value)} required ></input><br></br>
+                    <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                        placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
+                    <br></br>
+                    <button type="submit" className="mt-4 LSbtn" onClick={(event) => onLogin(event)}>Login
+                    </button>
+                    <br></br>
+                    <div className="d-inline-flex mt-5 mb-0 LSbs">
+                        <p className="mb-0">New User?</p>
+                        <Link to="/RequestAccess" className="ms-1 text-decoration-none LSl">Request Access</Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

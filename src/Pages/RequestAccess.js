@@ -1,39 +1,72 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router";
+import $ from 'jquery'
 
 export default function RequestAccess() {
+    const navigate = useNavigate();
 
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [role, setRole] = useState("Select Role");
+    const [pass, setPass] = useState("");
+    const [confPass, setConfPass] = useState("");
 
     const onRequest = (event) => {
         event.preventDefault();
+        //check if email correct
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!regex.test(id)) {
+            alert("Enter correct Email!!")
+        } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
+            alert("Enter official ID!!")
+        } else if (role == "Select Role") {
+            alert("Please select role!!")
+        }
     }
 
+    $(document).ready(function () {
+        if (pass != confPass) {
+            $('#confP').css('color', 'red')
+        } else {
+            $('#confP').css('color', 'black')
+        }
+    });
+
+
     return (
-        <div className='container'>
-            <h2 className="rounded shadow text-center mx-auto my-5 py-2 border border-1 border-dark">AssetMark - Shift Allowance App</h2>
-            <div className="rounded mt-5 shadow text-center p-5 w-400px mx-auto">
-                <input type="email" className="inputBox form-control border-dark fw-bold" placeholder="User ID"
-                    value={id} onChange={(data) => setId(data.target.value)} required></input>
-                <input type="text" className="inputBox form-control border-dark fw-bold mt-2  mx-auto"
-                    placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required />
-                <select className='inputBox form-select border-dark fw-bold mt-2  mx-auto' value={role}
-                    onChange={(data) => setRole(data.target.value)}>
-                    <option value="Role">Select Role</option>
-                    <option value="Lead">Lead</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Developer">Developer</option>
-                </select>
-                <br></br>
-                <button type="submit" className="btn btn-primary" onClick={(event) => onRequest(event)}>Request Access
-                </button>
-                <hr />
-                <div className="d-inline-flex ">
-                    <p className="mb-0">Already have account?</p>
-                    <Link to="/" className='ms-1'>Login</Link>
-                </div>
+        <div className='LSmain py-5'>
+            <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100">
+                <p className="w-auto fw-bold LScT">AssetMark - Shift Allowance</p>
+                <form className="text-center LSfm">
+                    <p className="text-center LSsT">Request Access</p>
+                    <p className="w-25 mx-auto LSdes">Hello there! Request Access for your account</p>
+                    <br></br>
+                    <input type="email" className=" p-1 border-dark fw-bold mx-auto mt-3 border-0 border-bottom LSin"
+                        placeholder="User ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
+                    <input type="text" className=" p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin"
+                        placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required /><br></br>
+                    <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                        placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
+                    <br></br>
+                    <input type="password" id='confP' className="p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                        placeholder="Confirm Password" value={confPass} onChange={(data) => setConfPass(data.target.value)} required />
+                    <br></br>
+                    <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin LSdd' value={role}
+                        onChange={(data) => setRole(data.target.value)} required>
+                        <option value="Role">Select Role</option>
+                        <option value="Lead">Lead</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Developer">Developer</option>
+                    </select><br></br>
+                    <button type="submit" className="mt-4 LSbtn" onClick={(event) => onRequest(event)}>Request Access
+                    </button>
+                    <br></br>
+                    <div className="d-inline-flex mt-5 mb-0 LSbs">
+                        <p className="mb-0">Already have account?</p>
+                        <Link to="/" className="ms-1 text-decoration-none LSl">Login</Link>
+                    </div>
+                </form>
             </div>
         </div>
     );

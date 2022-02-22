@@ -33,16 +33,16 @@ export default function Dashboard() {
     const [value, onChange] = useState([new Date(), new Date()]);
 
     return (
-        <div className="container">
+        <div className="container ">
             <h1 className="rounded shadow-sm text-center mx-auto my-3 py-2 border border-1 border-dark">Allowance Dashboard</h1>
             <div className="infoBar d-flex px-3 py-2">
                 <p className='mb-0'>Name</p>|<p className='mb-0'>User ID</p>
-                <button className='ms-auto btn btn-danger px-1 py-0' onClick={(data) => { onLogout(data.target.value) }}>Logout</button>
+                <button className='ms-auto btn btn-danger px-4 py-0' onClick={(data) => { onLogout(data.target.value) }}>Logout</button>
             </div>
             <div className="row mt-3">
                 <div className="col text-center">
                     <h6>Project</h6>
-                    <select className="form-control w-50 mx-auto text-center">
+                    <select className="p-1 mx-auto Ddd text-center Ds">
                         <option value={""} disabled>--- Select Project  ---</option>
                         <option value={"Digital"}>Digital</option>
                         <option value={"Enterprise Platforms"}>Enterprise Platforms</option>
@@ -89,7 +89,7 @@ export default function Dashboard() {
 
             <br />
             <div className="text-center">
-                <button className="btn btn-primary">
+                <button className="mainBtn">
                     Approve & Download
                 </button>
             </div>
