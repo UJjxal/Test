@@ -7,6 +7,8 @@ import Admin from './Pages/Admin';
 import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginScreen from './Pages/LoginScreen';
+import ErrorPage from './Pages/ErrorPage';
+import Header from './Components/Header';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {
@@ -18,6 +20,7 @@ export default function App() {
         <Route path="/RequestAccess" element={<RequestAccess />} />
         <Route path="/Dashboard" element={<Dashboard />} />
         <Route path="/Admin" element={<Admin />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

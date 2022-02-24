@@ -34,7 +34,7 @@ function LoginScreen() {
     return (
         <div className="LSmain py-5">
             {/* <img src="./background.jpg" className="position-fixed bgImg "></img> */}
-            <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100">
+            <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100 text-center">
                 <p className="w-auto fw-bold LScT">AssetMark - Shift Allowance</p>
                 <form className="text-center LSfm">
                     <p className="text-center LSsT">Sign In</p>
@@ -48,11 +48,12 @@ function LoginScreen() {
                     <button type="submit" className="mt-4 LSbtn" onClick={(event) => onLogin(event)}>Login
                     </button>
                     <br></br>
-                    <div className="d-inline-flex mt-5 mb-0 LSbs">
-                        <p className="mb-0">New User?</p>
-                        <Link to="/RequestAccess" className="ms-1 text-decoration-none LSl">Request Access</Link>
-                    </div>
+
                 </form>
+                <div className="d-inline-flex LSbs">
+                    <p className="mb-0">New User?</p>
+                    <Link to="/RequestAccess" className="ms-1 text-decoration-none LSl">Request Access</Link>
+                </div>
             </div>
         </div>
     );

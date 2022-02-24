@@ -36,13 +36,12 @@ export default function RequestAccess() {
 
     return (
         <div className='LSmain py-5'>
-            <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100">
+            <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100 text-center">
                 <p className="w-auto fw-bold LScT">AssetMark - Shift Allowance</p>
                 <form className="text-center LSfm">
                     <p className="text-center LSsT">Request Access</p>
                     <p className="w-25 mx-auto LSdes">Hello there! Request Access for your account</p>
-                    <br></br>
-                    <input type="email" className=" p-1 border-dark fw-bold mx-auto mt-3 border-0 border-bottom LSin"
+                    <input type="email" className=" p-1 border-dark fw-bold mx-auto border-0 border-bottom LSin"
                         placeholder="User ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
                     <input type="text" className=" p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin"
                         placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required /><br></br>
@@ -62,11 +61,12 @@ export default function RequestAccess() {
                     <button type="submit" className="mt-4 LSbtn" onClick={(event) => onRequest(event)}>Request Access
                     </button>
                     <br></br>
-                    <div className="d-inline-flex mt-5 mb-0 LSbs">
-                        <p className="mb-0">Already have account?</p>
-                        <Link to="/" className="ms-1 text-decoration-none LSl">Login</Link>
-                    </div>
+
                 </form>
+                <div className="d-inline-flex mb-0 LSbs">
+                    <p className="mb-0">Already have account?</p>
+                    <Link to="/" className="ms-1 text-decoration-none LSl">Login</Link>
+                </div>
             </div>
         </div>
     );
