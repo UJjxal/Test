@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router";
+import $ from 'jquery'
 
 function LoginScreen() {
     const navigate = useNavigate();
@@ -18,11 +19,12 @@ function LoginScreen() {
 
         //check if email correct
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
         if (!regex.test(id)) {
             alert("Enter correct Email!!!")
         } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
             alert("Enter official ID")
-        } else {
+        }  else {
             if (id != "admin@incedoinc.com") {
                 navigate("/Dashboard");
             } else {
@@ -30,6 +32,10 @@ function LoginScreen() {
             }
         }
     }
+
+    $(document).ready(function () {
+
+    });
 
     return (
         <div className="LSmain py-5">
@@ -40,9 +46,9 @@ function LoginScreen() {
                     <p className="text-center LSsT">Sign In</p>
                     <p className="w-25 mx-auto LSdes">Hello there! Sign in and start managing your shift Allowance</p>
                     <br></br>
-                    <input type="email" className=" p-1 border-dark fw-bold mx-auto mt-3 border-0 border-bottom LSin" placeholder="User ID" value={id}
+                    <input type="email" className="LSin" placeholder="Email ID" value={id}
                         onChange={(data) => setId(data.target.value)} required ></input><br></br>
-                    <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                    <input type="password" className="LSin"
                         placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
                     <br></br>
                     <button type="submit" className="mt-4 LSbtn" onClick={(event) => onLogin(event)}>Login

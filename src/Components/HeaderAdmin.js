@@ -1,7 +1,7 @@
 import logo from './logo.png';
 import { useNavigate } from "react-router";
 
-function Header() {
+function HeaderAdmin() {
 
     const navigate = useNavigate();
 
@@ -16,9 +16,9 @@ function Header() {
                 <button className='navBtn px-3 uaBtn'>User Admin</button>
                 <button className='navBtn px-3 dBtn'>Dashboard</button>
             </div>
-            <div className='ms-auto me-3'><button className=' btn btn-success' onClick={() => { navigate("/") }}>Profile</button></div>
+            <div className='ms-auto me-3'><button className=' LOBtn' onClick={() => { navigate("/") }}>Logout</button></div>
         </div>
     );
 }
 
-export default Header;
+export default HeaderAdmin;

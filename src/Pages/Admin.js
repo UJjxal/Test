@@ -1,13 +1,41 @@
 import $ from 'jquery'
-import { Component } from 'react';
 import { useNavigate } from "react-router";
 import { useState } from 'react';
-import Header from '../Components/Header';
+import HeaderAdmin from '../Components/HeaderAdmin';
 import Footer from '../Components/Footer';
 import Dashboard from './Dashboard';
-import { Link } from 'react-router-dom';
+import Table from './Table';
 
 function Admin() {
+    const COLUMNS = [
+        {
+            Header: 'userId',
+            Footer: 'userId',
+            accessor: 'userID',
+        },
+        {
+            Header: 'Name',
+            Footer: 'Name',
+            accessor: 'name',
+        },
+        {
+            Header: 'date',
+            Footer: 'date',
+            accessor: 'date',
+
+        },
+        {
+            Header: 'role',
+            Footer: 'role',
+            accessor: 'role'
+        },
+        {
+            Header: 'status',
+            Footer: 'status',
+            accessor: 'status'
+        },
+    ]
+
     const fakeEntries = [
         {
             "userId": "1",
@@ -60,36 +88,6 @@ function Admin() {
     ]
     const [data, setValue] = useState(fakeEntries);
 
-    $(document).ready(function () {
-        for (let index = 0; index < fakeEntries.length; index++) {
-            if (fakeEntries.at(index).status != "Requested") {
-                $("#" + fakeEntries.at(index).userId + "btn").prop("disabled", true);
-            }
-        }
-
-        for (let index = 0; index < fakeEntries.length; index++) {
-            if (fakeEntries.at(index).status == "Inactive") {
-                $("#" + fakeEntries.at(index).userId+" select").prop("disabled", "disabled");
-            }
-        }
-
-        $('.uaBtn').prop('disabled', true);
-        $(".dF").hide();
-
-        $('.dBtn').on('click', () => {
-            $('.dBtn').prop('disabled', true);
-            $('.uaBtn').prop('disabled', false);
-            $(".uaF").hide();
-            $(".dF").show();
-        })
-        $('.uaBtn').on('click', () => {
-            $('.uaBtn').prop('disabled', true);
-            $('.dBtn').prop('disabled', false);
-            $(".uaF").show();
-            $(".dF").hide();
-        })
-    });
-
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [role, setRole] = useState("Select Role");
@@ -109,15 +107,6 @@ function Admin() {
         }
     }
 
-    $(document).ready(function () {
-        if (pass != confPass) {
-            $('#confP').css('color', 'red')
-        } else {
-            $('#confP').css('color', 'black')
-        }
-
-    });
-
     const sortData = (x) => {
         if (x == "userId") {
             setValue(fakeEntries.sort(sortUserID));
@@ -135,7 +124,6 @@ function Admin() {
         var bName = b.name.toLowerCase();
         return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
     }
-
 
     const sortUserID = (a, b) => {
         var aName = a.userId.toLowerCase();
@@ -161,9 +149,46 @@ function Admin() {
         navigate("/")
     }
 
+    $(document).ready(function () {
+        for (let index = 0; index < fakeEntries.length; index++) {
+            if (fakeEntries.at(index).status != "Requested") {
+                $("#" + fakeEntries.at(index).userId + "btn").prop("disabled", true);
+            }
+        }
+
+        for (let index = 0; index < fakeEntries.length; index++) {
+            if (fakeEntries.at(index).status == "Inactive") {
+                $("#" + fakeEntries.at(index).userId + " select").prop("disabled", "disabled");
+            }
+        }
+
+        $('.uaBtn').prop('disabled', true);
+        $(".dF").hide();
+        $(".hDash").hide();
+
+        $('.dBtn').on('click', () => {
+            $('.dBtn').prop('disabled', true);
+            $('.uaBtn').prop('disabled', false);
+            $(".uaF").hide();
+            $(".dF").show();
+        })
+        $('.uaBtn').on('click', () => {
+            $('.uaBtn').prop('disabled', true);
+            $('.dBtn').prop('disabled', false);
+            $(".uaF").show();
+            $(".dF").hide();
+        })
+
+        if (pass != confPass) {
+            $('#confP').css('color', 'red')
+        } else {
+            $('#confP').css('color', 'black')
+        }
+    });
+
     return (
         <div className="text-center aS">
-            <Header />
+            <HeaderAdmin />
             <div className='container uaF'>
                 <h1 className="rounded shadow-sm text-center mx-auto my-3 py-2 border border-1 border-dark bg-white">User Administration</h1>
                 <table className="table table-bordered mt-3 text-center">
@@ -200,7 +225,7 @@ function Admin() {
 
             <Dashboard />
 
-            <Footer />
+            {/* <Footer /> */}
             <div id="container">
                 <div class="reveal-modal ">
                     <form className="text-center LSfm w-100 h-100 mt-5">

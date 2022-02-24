@@ -8,7 +8,8 @@ import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginScreen from './Pages/LoginScreen';
 import ErrorPage from './Pages/ErrorPage';
-import Header from './Components/Header';
+import Table from './Pages/Table';
+import HeaderAdmin from './Components/HeaderAdmin';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export default function App() {

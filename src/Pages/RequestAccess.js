@@ -16,10 +16,14 @@ export default function RequestAccess() {
         event.preventDefault();
         //check if email correct
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        let strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
         if (!regex.test(id)) {
             alert("Enter correct Email!!")
         } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
             alert("Enter official ID!!")
+        } else if (!strongPassword.test(pass)) {
+            $('.wpM').show();
         } else if (role == "Select Role") {
             alert("Please select role!!")
         }
@@ -31,8 +35,9 @@ export default function RequestAccess() {
         } else {
             $('#confP').css('color', 'black')
         }
-    });
 
+        $('.wpM').hide();
+    });
 
     return (
         <div className='LSmain py-5'>
@@ -41,23 +46,25 @@ export default function RequestAccess() {
                 <form className="text-center LSfm">
                     <p className="text-center LSsT">Request Access</p>
                     <p className="w-25 mx-auto LSdes">Hello there! Request Access for your account</p>
-                    <input type="email" className=" p-1 border-dark fw-bold mx-auto border-0 border-bottom LSin"
-                        placeholder="User ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
-                    <input type="text" className=" p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin"
+                    <input type="email" className="RSin"
+                        placeholder="Email ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
+                    <input type="text" className="RSin"
                         placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required /><br></br>
-                    <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                    <input type="password" className="RSin"
                         placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
                     <br></br>
-                    <input type="password" id='confP' className="p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                    <input type="password" id='confP' className="RSin"
                         placeholder="Confirm Password" value={confPass} onChange={(data) => setConfPass(data.target.value)} required />
                     <br></br>
-                    <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin LSdd' value={role}
+                    <select className='RSin LSdd' value={role}
                         onChange={(data) => setRole(data.target.value)} required>
                         <option value="Role">Select Role</option>
                         <option value="Lead">Lead</option>
                         <option value="Admin">Admin</option>
                         <option value="Developer">Developer</option>
                     </select><br></br>
+                    <p className="wpM" style={{ fontSize: "12px", color: 'red' }}>Choose a strong password</p>
+
                     <button type="submit" className="mt-4 LSbtn" onClick={(event) => onRequest(event)}>Request Access
                     </button>
                     <br></br>

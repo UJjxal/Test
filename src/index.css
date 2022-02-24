@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
 body {
   cursor: default;
 }
 
 .container {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   cursor: default;
 }
 
@@ -40,7 +49,6 @@ body {
 .LScT {
   font-size: 30px;
   color: #662b81;
-  font-family: monospace;
 }
 
 .LSsT {
@@ -50,16 +58,35 @@ body {
 }
 
 .LSbtn {
-  background-color: #b251e0 !important;
-  border: 0 !important;
-  color: white;
-  padding: 10px 20px;
+  border: 2px solid #69a6ce;
+  color: #69a6ce;
+  font-weight: 500;
+  padding: 10px 25px;
+  border-radius: 25px;
+  background-color: white;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .LSbtn:hover {
-  background-color: #8f41b3 !important;
-  border-radius: 10px;
-  transition-duration: .3s;
+  background: #69a6ce;
+  color: #fff;
+}
+
+.LOBtn {
+  border: 2px solid #ce6969;
+  color: #ce6969;
+  font-weight: 500;
+  padding: 5px 15px;
+  border-radius: 25px;
+  background-color: white;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.LOBtn:hover {
+  background: #ce6969;
+  color: #fff;
 }
 
 .LSbs {
@@ -90,48 +117,35 @@ input:focus {
 }
 
 .LSin {
-  width: 250px !important;
+  width: auto;
+  border: 2px solid #8799a7;
+  color: #8799a7;
+  font-weight: 500;
+  margin-top: 5px;
+  padding: 10px 20px !important;
+  border-radius: 10px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.RSin {
+  width: auto;
+  border: 2px solid #8799a7;
+  color: #8799a7;
+  font-weight: 500;
+  margin-top: 5px;
+  padding: 5px 15px !important;
+  border-radius: 10px;
+  background-color: white;
+  transition: all 0.3s ease;
 }
 
 .LSdd {
   cursor: pointer;
 }
 
-.Abtn {
-  background-color: #b251e0 !important;
-  border: 0 !important;
-  color: white;
-  height: 25px;
-  padding: 2px 20px !important;
-  font-size: 15px !important;
-}
-
-.Abtn:hover {
-  background-color: #8f41b3 !important;
-  transition-duration: .3s;
-}
-
 tr:hover {
   background-color: #cbcfee !important;
-}
-
-.Ds {
-  width: 250px;
-  height: 35px;
-  font-size: 15px;
-  cursor: pointer !important;
-}
-
-.mainBtn {
-  background-color: #b251e0 !important;
-  border: 0 !important;
-  color: white;
-  padding: 10px 20px;
-}
-
-.mainBtn:hover {
-  background-color: #8f41b3 !important;
-  transition-duration: .3s;
 }
 
 .topBar {
@@ -157,7 +171,8 @@ tr:hover {
 .navBtn:hover {
   background-color: #b251e0;
   color: white;
-  transition-duration: .5s;
+  transition: all 0.3s ease;
+
 }
 
 .footer {
@@ -207,16 +222,22 @@ thead>tr>th {
 }
 
 .aAUBtn {
-  font-size: 20px;
-  padding: 7px 15px;
-  border: 0;
-  background-color: cadetblue;
-  color: white;
+  display: inline-block;
+  margin: 0 10px;
+  text-decoration: none;
+  border: 2px solid #69a6ce;
+  color: #69a6ce;
+  font-weight: 500;
+  padding: 10px 25px;
+  border-radius: 25px;
+  background-color: white;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .aAUBtn:hover {
-  background-color: rgb(54, 118, 121);
-  transition-duration: .5s;
+  background: #69a6ce;
+  color: #fff;
 }
 
 .aAUF {
@@ -246,16 +267,6 @@ thead>tr>th {
   position: relative;
   margin: 0 auto;
   top: 25%;
-}
-
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  outline: none;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 .asdf {
@@ -331,4 +342,74 @@ thead>tr>th {
 
 a:link {
   text-decoration: none;
+}
+
+.tpC button {
+  height: 37px;
+  border: 2px solid #69a6ce;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background-color: white;
+  color: #69a6ce;
+  padding: 5px 10px;
+}
+
+.tpC button:hover {
+  background: #69a6ce;
+  color: #fff;
+}
+
+.tpC button:first-child {
+  border-radius: 25px 0 0 25px;
+}
+
+.tpC button:last-child {
+  border-radius: 0 25px 25px 0;
+}
+
+.tpC p {
+  height: 37px;
+  border-top: 2px solid #69a6ce;
+  border-bottom: 2px solid #69a6ce;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  background-color: white;
+  padding: 5px 10px;
+}
+
+.Ds {
+  height: 37px;
+  border: 2px solid #69a6ce;
+  border-radius: 25px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  background-color: white;
+  padding: 5px 10px;
+}
+
+.Ds:hover {
+  cursor: pointer;
+}
+
+.tBtns {
+  float: right;
+}
+
+.tBtns button, .tBtns select {
+  padding: 0px 10px;
+}
+
+.tBtns button:disabled {
+  border: 2px solid #cccccc;
+  color: #cccccc;
+}
+
+.tBtns button:disabled:hover {
+  background-color: white;
+}
+
+.tBtns select:hover {
+  cursor: pointer;
 }
