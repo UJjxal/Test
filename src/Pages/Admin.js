@@ -4,14 +4,15 @@ import { useState } from 'react';
 import HeaderAdmin from '../Components/HeaderAdmin';
 import Footer from '../Components/Footer';
 import Dashboard from './Dashboard';
-import Table from './Table';
+import React, { useMemo } from 'react';
+import { useTable, usePagination } from 'react-table'
 
 function Admin() {
     const COLUMNS = [
         {
-            Header: 'userId',
+            Header: 'User ID',
             Footer: 'userId',
-            accessor: 'userID',
+            accessor: 'userId',
         },
         {
             Header: 'Name',
@@ -19,74 +20,189 @@ function Admin() {
             accessor: 'name',
         },
         {
-            Header: 'date',
+            Header: 'Date',
             Footer: 'date',
             accessor: 'date',
 
         },
         {
-            Header: 'role',
+            Header: 'Role',
             Footer: 'role',
             accessor: 'role'
         },
         {
-            Header: 'status',
-            Footer: 'status',
-            accessor: 'status'
+            Header: 'Status',
+            Footer: 'Status',
+            accessor: 'status',
+
         },
     ]
 
-    const fakeEntries = [
+    const DATA = [
         {
-            "userId": "1",
-            "name": "Kenna",
-            "date": "1985-11-19",
+            "userId": "9392",
+            "name": "Viki",
+            "date": "10-07-2021",
+            "role": "Admin",
+            "status": "Active"
+        },
+        {
+            "userId": "6099",
+            "name": "Correy",
+            "date": "27-08-2006",
+            "role": "Admin",
+            "status": "Active"
+        },
+        {
+            "userId": "7408",
+            "name": "Lonnie",
+            "date": "25-03-1997",
+            "role": "Admin",
+            "status": "Inactive"
+        },
+        {
+            "userId": "5204",
+            "name": "Lila",
+            "date": "07-06-2017",
+            "role": "Admin",
+            "status": "Inactive"
+        },
+        {
+            "userId": "2726",
+            "name": "Hildegaard",
+            "date": "21-05-1991",
+            "role": "Developer",
+            "status": "Active"
+        },
+        {
+            "userId": "1476",
+            "name": "Tiffie",
+            "date": "25-01-1984",
             "role": "Lead",
-            "status": "Active",
-            "cnf": "true"
+            "status": "Active"
         },
         {
-            "userId": "86",
-            "name": "Korrie",
-            "date": "1996-01-16",
+            "userId": "9386",
+            "name": "Emilia",
+            "date": "02-03-1980",
+            "role": "Admin",
+            "status": "Active"
+        },
+        {
+            "userId": "4156",
+            "name": "Vanessa",
+            "date": "04-10-1989",
             "role": "Developer",
-            "status": "Requested",
-            "cnf": "1"
+            "status": "Active"
         },
         {
-            "userId": "96",
-            "name": "Petronia",
-            "date": "1999-08-20",
-            "role": "Developer",
-            "status": "Inactive",
-            "cnf": "0"
-        },
-        {
-            "userId": "52",
-            "name": "Marcy",
-            "date": "1992-10-05",
-            "role": "Developer",
-            "status": "Inactive",
-            "cnf": "0"
-        },
-        {
-            "userId": "41",
-            "name": "Starla",
-            "date": "1986-11-24",
-            "role": "Developer",
-            "status": "Active",
-            "cnf": "0"
-        },
-        {
-            "userId": "55",
-            "name": "Aili",
-            "date": "1989-12-22",
+            "userId": "2807",
+            "name": "Kalina",
+            "date": "15-01-2008",
             "role": "Lead",
-            "status": "Requested",
-            "cnf": "0"
+            "status": "Requested"
+        },
+        {
+            "userId": "1476",
+            "name": "Emilia",
+            "date": "19-03-2015",
+            "role": "Admin",
+            "status": "Inactive"
+        },
+        {
+            "userId": "9397",
+            "name": "Aryn",
+            "date": "02-08-1993",
+            "role": "Developer",
+            "status": "Inactive"
+        },
+        {
+            "userId": "1653",
+            "name": "Emelina",
+            "date": "05-03-2016",
+            "role": "Admin",
+            "status": "Requested"
+        },
+        {
+            "userId": "7622",
+            "name": "Zsa Zsa",
+            "date": "16-04-1983",
+            "role": "Lead",
+            "status": "Requested"
+        },
+        {
+            "userId": "9216",
+            "name": "Joelly",
+            "date": "16-02-1995",
+            "role": "Admin",
+            "status": "Requested"
+        },
+        {
+            "userId": "8881",
+            "name": "Louella",
+            "date": "25-11-2000",
+            "role": "Lead",
+            "status": "Active"
+        },
+        {
+            "userId": "5066",
+            "name": "Robbi",
+            "date": "19-03-1988",
+            "role": "Developer",
+            "status": "Requested"
+        },
+        {
+            "userId": "2987",
+            "name": "Xylina",
+            "date": "20-02-1989",
+            "role": "Lead",
+            "status": "Inactive"
+        },
+        {
+            "userId": "7739",
+            "name": "Cherilyn",
+            "date": "12-01-1987",
+            "role": "Developer",
+            "status": "Active"
+        },
+        {
+            "userId": "141",
+            "name": "Fawne",
+            "date": "29-08-1997",
+            "role": "Admin",
+            "status": "Active"
         }
     ]
-    const [data, setValue] = useState(fakeEntries);
+
+    const columns = useMemo(() => COLUMNS, [])
+    const data = useMemo(() => DATA, [])
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        page,
+        nextPage,
+        previousPage,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        state,
+        gotoPage,
+        pageCount,
+        setPageSize,
+        prepareRow
+    } = useTable(
+        {
+            columns,
+            data,
+            initialState: { pageIndex: 0 }
+        },
+        usePagination
+    )
+
+    const { pageIndex, pageSize } = state
+    // const [data, setValue] = useState(DATA);
 
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -107,42 +223,6 @@ function Admin() {
         }
     }
 
-    const sortData = (x) => {
-        if (x == "userId") {
-            setValue(fakeEntries.sort(sortUserID));
-        } else if (x == "name") {
-            setValue(fakeEntries.sort(sortName));
-        } else if (x == "role") {
-            setValue(fakeEntries.sort(sortRole));
-        } else if (x == "status") {
-            setValue(fakeEntries.sort(sortStatus));
-        }
-    }
-
-    const sortName = (a, b) => {
-        var aName = a.name.toLowerCase();
-        var bName = b.name.toLowerCase();
-        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
-    }
-
-    const sortUserID = (a, b) => {
-        var aName = a.userId.toLowerCase();
-        var bName = b.userId.toLowerCase();
-        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
-    }
-
-    const sortRole = (a, b) => {
-        var aName = a.role.toLowerCase();
-        var bName = b.role.toLowerCase();
-        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
-    }
-
-    const sortStatus = (a, b) => {
-        var aName = a.status.toLowerCase();
-        var bName = b.status.toLowerCase();
-        return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
-    }
-
     const navigate = useNavigate();
 
     const onLogout = (event) => {
@@ -150,40 +230,35 @@ function Admin() {
     }
 
     $(document).ready(function () {
-        for (let index = 0; index < fakeEntries.length; index++) {
-            if (fakeEntries.at(index).status != "Requested") {
-                $("#" + fakeEntries.at(index).userId + "btn").prop("disabled", true);
+        for (let index = 0; index < DATA.length; index++) {
+            if (DATA.at(index).status != "Requested") {
+                $("#" + DATA.at(index).userId + "btn").prop("disabled", true);
             }
         }
 
-        for (let index = 0; index < fakeEntries.length; index++) {
-            if (fakeEntries.at(index).status == "Inactive") {
-                $("#" + fakeEntries.at(index).userId + " select").prop("disabled", "disabled");
+        for (let index = 0; index < DATA.length; index++) {
+            if (DATA.at(index).status == "Inactive") {
+                $("#" + DATA.at(index).userId + " select").prop("disabled", "disabled");
             }
         }
 
         $('.uaBtn').prop('disabled', true);
-        $(".dF").hide();
+        $(".Dashboard").hide();
         $(".hDash").hide();
+        $(".ft1").hide();
 
         $('.dBtn').on('click', () => {
             $('.dBtn').prop('disabled', true);
             $('.uaBtn').prop('disabled', false);
             $(".uaF").hide();
-            $(".dF").show();
+            $(".Dashboard").show();
         })
         $('.uaBtn').on('click', () => {
             $('.uaBtn').prop('disabled', true);
             $('.dBtn').prop('disabled', false);
             $(".uaF").show();
-            $(".dF").hide();
+            $(".Dashboard").hide();
         })
-
-        if (pass != confPass) {
-            $('#confP').css('color', 'red')
-        } else {
-            $('#confP').css('color', 'black')
-        }
     });
 
     return (
@@ -194,12 +269,12 @@ function Admin() {
                 <table className="table table-bordered mt-3 text-center">
                     <thead>
                         <tr>
-                            <th><button className='sortBtn' onClick={() => sortData("userId")}></button>User ID</th>
-                            <th><button className='sortBtn' onClick={() => sortData("name")}></button>Name</th>
-                            <th><button className='sortBtn' onClick={() => sortData("name")}></button>Active From</th>
-                            <th><button className='sortBtn' onClick={() => sortData("role")}></button>Role</th>
-                            <th><button className='sortBtn' onClick={() => sortData("status")}></button>Status</th>
-                            <th><button className='sortBtn' onClick={() => sortData("name")}></button>Confirm</th>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Active From</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Confirm</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -220,12 +295,12 @@ function Admin() {
                         })}
                     </tbody>
                 </table>
-                <a href="#container" className="aAUBtn">Add User</a>
+                <a href="#container" className="aAUBtn mt-2 mb-4">Add User</a>
             </div>
 
             <Dashboard />
 
-            {/* <Footer /> */}
+            <Footer />
             <div id="container">
                 <div class="reveal-modal ">
                     <form className="text-center LSfm w-100 h-100 mt-5">

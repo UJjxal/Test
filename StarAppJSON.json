@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "5a3915f0-8098-4036-a01f-8b3d203aa08b",
+		"name": "IncedoStarApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/api/oauth/token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user_client_app",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "default"
+						},
+						{
+							"key": "username",
+							"value": "abc@gmail.com",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:9080/api/oauth/token",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDU3ODExMDMsInVzZXJfbmFtZSI6ImFiY0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJyb2xlX2FkbWluIiwicmVhZF91c2VyIiwiYWRkX3VzZXIiXSwianRpIjoiSnBBX2ZMWk9qYnhOX1FfeGdwcG1LUV8tNXRBIiwiY2xpZW50X2lkIjoidXNlcl9jbGllbnRfYXBwIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdfQ.NYZFhnS6wMuAjHFjx7daPZEL-HtD_0zNKBMhkuTW6HH9VecfgB0fBIc27zA6t_HshDVlCk4QyvDwC5984ZeT9YCM3uS0POCUqdYjmWIpWUjhiVs6uOMdBhvvc6bZ0jOxo3cS5MtFpV64w7o28pg5Nzd-Og8CnsrtWck_BHt863D9g80erJUxT_lQ-vKmEQiIOj5qfokbZd7jF9OtEwWprpIJk2iYMtyEekdLnheevHJqlCAS9djOxplQYDLeRXezQ1LEljj_haCpugbInU_ZBLXLxJaSNzf-nKLkBjKVehMDkMY9uV_Z3diU-s_y_kIQO1nfC0kc8CkMVIOJ5-wAIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9080/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serviceData\":{\r\n        \"email\":\"ashu@incedoinc.com\",\r\n        \"name\":\"ashutosh\",\r\n        \"role\":\"role_lead\",\r\n        \"password\":\"12345\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9080/api/user/register",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/view",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDU3ODExMDMsInVzZXJfbmFtZSI6ImFiY0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJyb2xlX2FkbWluIiwicmVhZF91c2VyIiwiYWRkX3VzZXIiXSwianRpIjoiSnBBX2ZMWk9qYnhOX1FfeGdwcG1LUV8tNXRBIiwiY2xpZW50X2lkIjoidXNlcl9jbGllbnRfYXBwIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdfQ.NYZFhnS6wMuAjHFjx7daPZEL-HtD_0zNKBMhkuTW6HH9VecfgB0fBIc27zA6t_HshDVlCk4QyvDwC5984ZeT9YCM3uS0POCUqdYjmWIpWUjhiVs6uOMdBhvvc6bZ0jOxo3cS5MtFpV64w7o28pg5Nzd-Og8CnsrtWck_BHt863D9g80erJUxT_lQ-vKmEQiIOj5qfokbZd7jF9OtEwWprpIJk2iYMtyEekdLnheevHJqlCAS9djOxplQYDLeRXezQ1LEljj_haCpugbInU_ZBLXLxJaSNzf-nKLkBjKVehMDkMY9uV_Z3diU-s_y_kIQO1nfC0kc8CkMVIOJ5-wAIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9080/api/user/view",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"user",
+						"view"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/modify",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDU3ODExMDMsInVzZXJfbmFtZSI6ImFiY0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJyb2xlX2FkbWluIiwicmVhZF91c2VyIiwiYWRkX3VzZXIiXSwianRpIjoiSnBBX2ZMWk9qYnhOX1FfeGdwcG1LUV8tNXRBIiwiY2xpZW50X2lkIjoidXNlcl9jbGllbnRfYXBwIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdfQ.NYZFhnS6wMuAjHFjx7daPZEL-HtD_0zNKBMhkuTW6HH9VecfgB0fBIc27zA6t_HshDVlCk4QyvDwC5984ZeT9YCM3uS0POCUqdYjmWIpWUjhiVs6uOMdBhvvc6bZ0jOxo3cS5MtFpV64w7o28pg5Nzd-Og8CnsrtWck_BHt863D9g80erJUxT_lQ-vKmEQiIOj5qfokbZd7jF9OtEwWprpIJk2iYMtyEekdLnheevHJqlCAS9djOxplQYDLeRXezQ1LEljj_haCpugbInU_ZBLXLxJaSNzf-nKLkBjKVehMDkMY9uV_Z3diU-s_y_kIQO1nfC0kc8CkMVIOJ5-wAIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":2,\r\n    \"statusValue\":\"Active\",\r\n    \"roleValue\":\"role_lead\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9080/api/user/modify",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"user",
+						"modify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user/add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDU3ODExMDMsInVzZXJfbmFtZSI6ImFiY0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJyb2xlX2FkbWluIiwicmVhZF91c2VyIiwiYWRkX3VzZXIiXSwianRpIjoiSnBBX2ZMWk9qYnhOX1FfeGdwcG1LUV8tNXRBIiwiY2xpZW50X2lkIjoidXNlcl9jbGllbnRfYXBwIiwic2NvcGUiOlsicm9sZV9hZG1pbiJdfQ.NYZFhnS6wMuAjHFjx7daPZEL-HtD_0zNKBMhkuTW6HH9VecfgB0fBIc27zA6t_HshDVlCk4QyvDwC5984ZeT9YCM3uS0POCUqdYjmWIpWUjhiVs6uOMdBhvvc6bZ0jOxo3cS5MtFpV64w7o28pg5Nzd-Og8CnsrtWck_BHt863D9g80erJUxT_lQ-vKmEQiIOj5qfokbZd7jF9OtEwWprpIJk2iYMtyEekdLnheevHJqlCAS9djOxplQYDLeRXezQ1LEljj_haCpugbInU_ZBLXLxJaSNzf-nKLkBjKVehMDkMY9uV_Z3diU-s_y_kIQO1nfC0kc8CkMVIOJ5-wAIg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serviceData\":{\r\n        \"email\":\"ashutosh@incedoinc.com\",\r\n        \"name\":\"ashutosh\",\r\n        \"role\":\"role_lead\",\r\n        \"password\":\"12345\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9080/api/user/add",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"api",
+						"user",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

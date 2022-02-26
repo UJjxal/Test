@@ -1,4 +1,4 @@
-import logo from './logo.png';
+import logo from '../logo.png';
 import { useNavigate } from "react-router";
 
 function HeaderAdmin() {

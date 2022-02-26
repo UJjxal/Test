@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useNavigate } from "react-router";
 import HeaderDashboard from '../Components/HeaderDashboard';
-import Footer from '../Components/Footer';
+import Footer from '../Components/Footer1';
 import $ from 'jquery'
 import { useTable, usePagination } from 'react-table'
 
@@ -694,7 +694,7 @@ export default function Dashboard() {
     });
 
     return (
-        <div className='pb-5'>
+        <div className='Dashboard'>
             <HeaderDashboard />
             <div className="container dF">
                 <h1 className="rounded shadow-sm text-center mx-auto my-3 py-2 border border-1 border-dark bg-white">Allowance Dashboard</h1>
@@ -762,13 +762,13 @@ export default function Dashboard() {
                 </div><br></br>
 
                 <br />
-                <div className="text-center mt-4">
+                <div className="text-center my-4">
                     <button className="LSbtn">
                         Approve & Download
                     </button>
                 </div>
             </div>
-            {/* <Footer /> */}
+            <Footer/>
         </div>
     );
 }
