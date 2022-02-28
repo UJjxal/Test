@@ -267,36 +267,6 @@ function Admin() {
         }
     ]
 
-    const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => DATA, [])
-
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        page,
-        nextPage,
-        previousPage,
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
-        state,
-        gotoPage,
-        pageCount,
-        setPageSize,
-        prepareRow
-    } = useTable(
-        {
-            columns,
-            data,
-            initialState: { pageIndex: 0 }
-        },
-        usePagination
-    )
-
-    const { pageIndex, pageSize } = state
-    // const [data, setValue] = useState(DATA);
-
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [role, setRole] = useState("Select Role");

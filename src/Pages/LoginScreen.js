@@ -45,11 +45,6 @@ function LoginScreen() {
             setTimeout(function () {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
-        } else if (id != "admin@incedoinc.com" || pass != "Bluecat@2804") {
-            $('.errorMSG').text("Invalid Credentials").animate({ opacity: '1' }, "slow");
-            setTimeout(function () {
-                $('.errorMSG').animate({ opacity: '0' }, "slow");
-            }, 3000);
         } else {
             authenticate();
         }
