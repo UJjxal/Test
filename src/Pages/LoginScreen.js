@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router";
 import $ from 'jquery'
 import TransparentFooter from '../Components/TransparentFooter';
 import logo from '../logo.png';
+import axios from 'axios';
+import { toaster } from 'evergreen-ui';
 
 function LoginScreen() {
     const navigate = useNavigate();
@@ -11,10 +13,26 @@ function LoginScreen() {
     const [id, setId] = useState("");
     const [pass, setPass] = useState("");
 
+    const [token, setToken] = useState({});
+
+    const [user, setUser] = useState({})
+
     const onRequestAccess = (event) => {
         event.preventDefault();
 
     }
+
+    useEffect(() => {
+        if (Object.keys(token).length != 0) {
+            getDetails();
+        }
+    }, [token])
+
+    useEffect(() => {
+        if (Object.keys(user).length != 0) {
+            redirect();
+        }
+    }, [user])
 
     const onLogin = (event) => {
         event.preventDefault();
@@ -33,13 +51,62 @@ function LoginScreen() {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
         } else {
-            if (id != "admin@incedoinc.com") {
-                navigate("/Dashboard");
-            } else {
-                navigate("/Admin")
-            }
+            authenticate();
         }
     }
+
+
+    const authenticate = () => {
+        const bodyFormData = new FormData();
+        bodyFormData.append("grant_type", 'password');
+        bodyFormData.append("username", id);
+        bodyFormData.append("password", pass);
+        axios.request(
+            {
+                method: 'POST',
+                headers: {
+                    'content-type': 'multipart/form-data',
+                },
+                auth: {
+                    username: 'user_client_app',
+                    password: 'password',
+                },
+
+                data: bodyFormData,
+                url: 'http://localhost:9080/api/oauth/token',
+            }
+        ).then(function (res) {
+            setToken(res.data);
+            toaster.success("Login successful!")
+        }).catch(function (err) {
+            toaster.warning(err.response.data.error_description)
+        });
+    }
+
+    const getDetails = () => {
+        axios.request({
+            url: "http://localhost:9080/api/user/login",
+            method: "GET",
+            headers: {
+                authorization: "Bearer " + token.access_token
+            }
+        }).then(res => {
+            setUser(res.data.serviceData);
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    const redirect = () => {
+        console.log(user)
+        if (user.role === "Admin") {
+            navigate("/Admin", { state: { user: user, token: token } })
+        } else if (user.role === "Lead" || user.role === "Developer") {
+            navigate("/Dashboard", { state: { user: user, token: token } })
+        }
+    }
+
+
 
     $(document).ready(function () {
     });
@@ -49,7 +116,6 @@ function LoginScreen() {
             <p className="mx-auto mt-3 px-3 py-1 bg-danger errorMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className="LSmain py-5">
-                {/* <img src="./background.jpg" className="position-fixed bgImg "></img> */}
                 <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100 text-center">
                     <p className="w-auto fw-bold LScT">AssetMark - Shift Allowance</p>
                     <form className="text-center LSfm">

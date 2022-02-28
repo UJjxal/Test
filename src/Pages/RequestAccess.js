@@ -4,6 +4,8 @@ import { useNavigate } from "react-router";
 import $ from 'jquery'
 import logo from '../logo.png';
 import TransparentFooter from '../Components/TransparentFooter';
+import axios from 'axios'
+import { toaster } from 'evergreen-ui';
 
 export default function RequestAccess() {
     const navigate = useNavigate();
@@ -40,7 +42,39 @@ export default function RequestAccess() {
             setTimeout(function () {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
+        } else {
+            makeRequest();
         }
+    }
+
+    const makeRequest = () => {
+        const bodyFormData = new FormData();
+        bodyFormData.append("grant_type", 'password');
+        bodyFormData.append("username", id);
+        bodyFormData.append("password", pass);
+
+        axios.request(
+            {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                },
+                data: {
+                    "serviceData": {
+                        "email": id,
+                        "name": name,
+                        "role": role,
+                        "password": pass
+                    }
+                },
+                url: 'http://localhost:9080/api/user/register'
+            }
+        ).then(function (res) {
+            toaster.success("Request Added successfully!")
+        }).catch(function (err) {
+            toaster.warning(err.response.data.errorDesc)
+        });
+
     }
 
     $(document).ready(function () {

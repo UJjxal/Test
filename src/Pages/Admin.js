@@ -1,12 +1,106 @@
-import $ from 'jquery';
-import React, { useMemo, useState } from 'react';
-import { useNavigate } from "react-router";
-import { usePagination, useTable } from 'react-table';
-import Footer from '../Components/Footer';
+import $ from 'jquery'
+import { useNavigate, useLocation } from "react-router";
+import { useEffect, useState } from 'react';
 import HeaderAdmin from '../Components/HeaderAdmin';
+import Footer from '../Components/Footer';
 import Dashboard from './Dashboard';
+import Table from './Table';
+import axios from 'axios';
+import { toaster } from 'evergreen-ui';
+import Modal from 'react-bootstrap/Modal';
 
 function Admin() {
+
+    const [records, setRecords] = useState([]);
+
+    const userDetails = useLocation().state;
+
+    const [show, setShow] = useState(false);
+
+    const [errorDesc, setErrorDesc] = useState("");
+
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+
+    const getUsers = () => {
+        axios.request({
+            url: "http://localhost:9080/api/user/view",
+            method: "GET",
+            headers: {
+                authorization: "Bearer " + userDetails.token.access_token
+            }
+        }).then(res => {
+            setRecords(res.data.serviceData);
+        }).catch(err => {
+            console.log(err)
+        })
+    }
+
+    const handleChange = (value, obj, property) => {
+        const newRecords = JSON.parse(JSON.stringify(records))
+        if (property === "status") {
+            newRecords.find(rec => rec.userId === obj.userId).status = value;
+            newRecords.find(rec => rec.userId === obj.userId).confirm = true;
+        } else if (property === "confirm") {
+            newRecords.find(rec => rec.userId === obj.userId).confirm = false;
+        }
+        setRecords(newRecords)
+    }
+
+    const modifyRecord = (obj) => {
+        axios.request(
+            {
+                url: "http://localhost:9080/api/user/modify",
+                method: "PUT",
+                headers: {
+                    "content-type": "application/json",
+                    authorization: "Bearer " + userDetails.token.access_token
+
+                },
+                data: {
+                    "userId": obj.userId,
+                    "roleValue": obj.role,
+                    "statusValue": obj.status
+                }
+            }
+        ).then(res => {
+            toaster.success("Modified successfully!")
+            handleChange(false, obj, "confirm")
+        }).catch(err => {
+
+        })
+    }
+
+    const addUser = () => {
+        axios.request(
+            {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: "Bearer " + userDetails.token.access_token
+                },
+                data: {
+                    "serviceData": {
+                        "email": id,
+                        "name": name,
+                        "role": role,
+                        "password": pass
+                    }
+                },
+                url: 'http://localhost:9080/api/user/add'
+            }
+        ).then(function (res) {
+            toaster.success("New Record Added successfully!")
+            setShow(false);
+            getUsers();
+        }).catch(function (err) {
+            setErrorDesc(err.response.data.errorDesc)
+        });
+    }
+
     const COLUMNS = [
         {
             Header: 'User ID',
@@ -223,6 +317,8 @@ function Admin() {
             $('.wpM').show();
         } else if (role == "Select Role") {
             alert("Please select role!!")
+        } else {
+            addUser();
         }
     }
 
@@ -303,13 +399,13 @@ function Admin() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map(obj => {
+                        {records.map(obj => {
                             return <tr className='bg-white' id={obj.userId}>
                                 <td>{obj.userId}</td>
                                 <td>{obj.name}</td>
-                                <td>{obj.date}</td>
+                                <td>{obj.activeFrom}</td>
                                 <td>{obj.role}</td>
-                                <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSdd'>
+                                {/* <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSdd'>
                                     <option value={obj.status} >{obj.status}</option>
                                     <option value="Lead">Active</option>
                                     <option value="Admin">Inactive</option>
@@ -318,17 +414,25 @@ function Admin() {
                                 <td className='btnCol'>
                                     <button id={obj.userId + "btn"} className="aTBtn" value={"UserID"}>Confirm</button>
                                     <button id={obj.userId + "btnD"} className="aTBtn mt-2 bg-danger delBtn" value={"UserID"}>Delete</button>
-                                </td>
-                            </tr>
+                                </td> */}
+                                <td><select value={obj.status} onChange={(evt) => handleChange(evt.target.value, obj, "status")} className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSdd'>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                    <option value="Requested">Requested</option>
+                                    <option value="Locked">Locked</option>
+                                </select></td>
+                                <td><button id={obj.userId + "btn"} onClick={() => modifyRecord(obj)} disabled={obj.confirm === true && obj.status !== "Requested" && obj.status !== "Locked" ? false : true} className="aTBtn" value={"UserID"}>Confirm</button></td>
+                            </tr >
                         })}
-                    </tbody>
-                </table>
-                <a href="#container" className="aAUBtn mt-2 mb-4">Add User</a>
-            </div>
+                    </tbody >
+                </table >
+                {/* <a href="#container" className="aAUBtn mt-2 mb-4">Add User</a> */}
+                <button className="aAUBtn mt-2 mb-4" onClick={() => setShow(true)}>Add User</button>
+            </div >
 
             <Dashboard />
 
-            <Footer />
+            {/* <Footer />
             <div id="container">
                 <div class="reveal-modal ">
                     <form className="text-center w-100 mt-5 AUBE">
@@ -357,7 +461,50 @@ function Admin() {
                     </form>
                 </div>
             </div>
-        </div>
+        </div > */}
+            <Footer />
+            <Modal
+                show={show}
+                onHide={() => { setShow(false); setErrorDesc("") }}
+                dialogClassName="modal-90w"
+                aria-labelledby="example-custom-modal-styling-title">
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-custom-modal-styling-title">
+                        Add New User
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div class="reveal-modal">
+                        <form className="text-center w-100 mt-5 AUBE">
+                            <div className='rounded p-4 AUB mx-auto'>
+                                <p style={{ background: "red", color: "white" }}>{errorDesc}</p>
+                                <input type="email" className=" p-1 border-dark fw-bold mx-auto border-0 border-bottom LSin"
+                                    placeholder="User ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
+                                <input type="text" className=" p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin"
+                                    placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required /><br></br>
+                                <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                                    placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
+                                <br></br>
+                                <input type="password" id='confP' className="p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                                    placeholder="Confirm Password" value={confPass} onChange={(data) => setConfPass(data.target.value)} required />
+                                <br></br>
+                                <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin LSdd' value={role}
+                                    onChange={(data) => setRole(data.target.value)} required>
+                                    <option value="Role">Select Role</option>
+                                    <option value="Lead">Lead</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Developer">Developer</option>
+                                </select><br></br>
+                                <button type="submit" className="mt-4 LSbtn" onClick={(event) => onRequest(event)}>Add User
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </Modal.Body>
+            </Modal>
+
+        </div >
     );
 }
 
