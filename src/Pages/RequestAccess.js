@@ -22,13 +22,33 @@ export default function RequestAccess() {
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         let strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-        if (!regex.test(id)) {
-            $('.errorMSG').text("Enter correct Email!").animate({ opacity: '1' }, "slow");
+        if (id == '') {
+            $('.errorMSG').text("Please Enter Email ID").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (name == '') {
+            $('.errorMSG').text("Please Enter Name").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (pass == '') {
+            $('.errorMSG').text("Please Enter Password").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (pass != confPass) {
+            $('.errorMSG').text("Password Does Not Match").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (!regex.test(id)) {
+            $('.errorMSG').text("Please Enter Valid Email ID").animate({ opacity: '1' }, "slow");
             setTimeout(function () {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
         } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
-            $('.errorMSG').text("Enter official ID!").animate({ opacity: '1' }, "slow");
+            $('.errorMSG').text("Please Enter official ID").animate({ opacity: '1' }, "slow");
             setTimeout(function () {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
@@ -38,7 +58,7 @@ export default function RequestAccess() {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
         } else if (role == "Select Role") {
-            $('.errorMSG').text("Please select role!").animate({ opacity: '1' }, "slow");
+            $('.errorMSG').text("Please Select A Role").animate({ opacity: '1' }, "slow");
             setTimeout(function () {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
@@ -70,9 +90,15 @@ export default function RequestAccess() {
                 url: 'http://localhost:9080/api/user/register'
             }
         ).then(function (res) {
-            toaster.success("Request Added successfully!")
+            $('.successMSG').text("Access Request Added Successfully").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.successMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         }).catch(function (err) {
-            toaster.warning(err.response.data.errorDesc)
+            $('.errorMSG').text(err.response.data.errorDesc).animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         });
 
     }
@@ -83,12 +109,12 @@ export default function RequestAccess() {
         } else {
             $('#confP').css('color', 'black')
         }
-        $('.wpM').hide();
     });
 
     return (
         <div>
-            <p className="mx-auto mt-3 px-3 py-1 bg-danger errorMSG"></p>
+            <p className="mx-auto px-3 py-1 errorMSG"></p>
+            <p className="mx-auto px-3 py-1 successMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className='LSmain py-5'>
                 <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100 text-center">
@@ -106,7 +132,7 @@ export default function RequestAccess() {
                         <input type="password" id='confP' className="RSin"
                             placeholder="Confirm Password" value={confPass} onChange={(data) => setConfPass(data.target.value)} required />
                         <br></br>
-                        <select className='RSin LSdd' value={role}
+                        <select className='RSin LSdd' style={{ width: "245px"}} value={role}
                             onChange={(data) => setRole(data.target.value)} required>
                             <option value="Role">Select Role</option>
                             <option value="Lead">Lead</option>

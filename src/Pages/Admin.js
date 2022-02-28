@@ -275,18 +275,50 @@ function Admin() {
 
     const onRequest = (event) => {
         event.preventDefault();
+        //check if email correct
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         let strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-        if (!regex.test(id)) {
-            alert("Enter correct Email!!")
+        if (id == '') {
+            $('.errorMSG').text("Please Enter Email ID").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (name == '') {
+            $('.errorMSG').text("Please Enter Name").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (pass == '') {
+            $('.errorMSG').text("Please Enter Password").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (pass != confPass) {
+            $('.errorMSG').text("Password Does Not Match").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (!regex.test(id)) {
+            $('.errorMSG').text("Please Enter Valid Email ID").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
-            alert("Enter official ID!!")
+            $('.errorMSG').text("Please Enter official ID").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else if (!strongPassword.test(pass)) {
-            alert("Password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters")
-            $('.wpM').show();
+            $('.errorMSG').text("Password must contain at least 8 characters, at least 1 number and both lowercase and uppercase letters and special characters!").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else if (role == "Select Role") {
-            alert("Please select role!!")
+            $('.errorMSG').text("Please Select A Role").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else {
             addUser();
         }
@@ -301,19 +333,9 @@ function Admin() {
     }
 
     $(document).ready(function () {
-
-        $('.delBtn').hide();
-
         for (let index = 0; index < DATA.length; index++) {
             if (DATA.at(index).status != "Requested") {
                 $("#" + DATA.at(index).userId + "btn").prop("disabled", true);
-            }
-        }
-
-        for (let index = 0; index < DATA.length; index++) {
-            if (DATA.at(index).status == "Inactive") {
-                $("#" + DATA.at(index).userId + " select").prop("disabled", "disabled");
-                $("#" + DATA.at(index).userId + "btnD").show();
             }
         }
 
@@ -342,14 +364,6 @@ function Admin() {
             $(".uaF").show();
             $(".Dashboard").hide();
         })
-
-        $('.aAUBtn').on('click', () => {
-            document.body.style.overflow = "hidden";
-        })
-
-        $('.AUC').on('click', () => {
-            document.body.style.overflow = "auto";
-        })
     });
 
     return (
@@ -375,69 +389,31 @@ function Admin() {
                                 <td>{obj.name}</td>
                                 <td>{obj.activeFrom}</td>
                                 <td>{obj.role}</td>
-                                {/* <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSdd'>
-                                    <option value={obj.status} >{obj.status}</option>
-                                    <option value="Lead">Active</option>
-                                    <option value="Admin">Inactive</option>
-                                    <option value="Developer">Requested</option>
-                                </select>
-                                <td className='btnCol'>
-                                    <button id={obj.userId + "btn"} className="aTBtn" value={"UserID"}>Confirm</button>
-                                    <button id={obj.userId + "btnD"} className="aTBtn mt-2 bg-danger delBtn" value={"UserID"}>Delete</button>
-                                </td> */}
-                                <td><select value={obj.status} onChange={(evt) => handleChange(evt.target.value, obj, "status")} className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSdd'>
+                                <td><select value={obj.status} onChange={(evt) => handleChange(evt.target.value, obj, "status")} className=' p-1 border-dark fw-bold mx-auto border-1 rounded border-bottom LSdd'>
+                                    <option value="Active">{obj.status}</option>
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
-                                    <option value="Requested">Requested</option>
-                                    <option value="Locked">Locked</option>
                                 </select></td>
-                                <td><button id={obj.userId + "btn"} onClick={() => modifyRecord(obj)} disabled={obj.confirm === true && obj.status !== "Requested" && obj.status !== "Locked" ? false : true} className="aTBtn" value={"UserID"}>Confirm</button></td>
+                                <td>
+                                    <button id={obj.userId + "btn"} onClick={() => modifyRecord(obj)} disabled={obj.confirm === true && obj.status !== "Requested" && obj.status !== "Locked" ? false : true} className="aTBtn" value={"UserID"}>Confirm</button>
+                                    <br></br>
+                                    <button id={obj.userId + "btnD"} className="aTBtn mt-2 bg-danger delBtn" value={"UserID"} hidden={obj.status != 'Inactive'}>Delete</button>
+                                </td>
                             </tr >
                         })}
                     </tbody >
                 </table >
-                {/* <a href="#container" className="aAUBtn mt-2 mb-4">Add User</a> */}
                 <button className="aAUBtn mt-2 mb-4" onClick={() => setShow(true)}>Add User</button>
             </div >
 
             <Dashboard />
 
-            {/* <Footer />
-            <div id="container">
-                <div class="reveal-modal ">
-                    <form className="text-center w-100 mt-5 AUBE">
-                        <div className='rounded p-4 AUB mx-auto'>
-                            <input type="email" className=" p-1 border-dark fw-bold mx-auto border-0 border-bottom LSin"
-                                placeholder="Email ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
-                            <input type="text" className=" p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin"
-                                placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required /><br></br>
-                            <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
-                                placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
-                            <br></br>
-                            <input type="password" id='confP' className="p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
-                                placeholder="Confirm Password" value={confPass} onChange={(data) => setConfPass(data.target.value)} required />
-                            <br></br>
-                            <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin LSdd' value={role}
-                                onChange={(data) => setRole(data.target.value)} required>
-                                <option value="Role">Select Role</option>
-                                <option value="Lead">Lead</option>
-                                <option value="Admin">Admin</option>
-                                <option value="Developer">Developer</option>
-                            </select><br></br>
-                            <button type="submit" className="mt-4 LSbtn" onClick={(event) => onRequest(event)}>Add User
-                            </button>
-                            <a href="#" className='LSbtn ms-3 AUC'>Cancel</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div > */}
             <Footer />
             <Modal
                 show={show}
                 onHide={() => { setShow(false); setErrorDesc("") }}
                 dialogClassName="modal-90w"
-                aria-labelledby="example-custom-modal-styling-title">
+                aria-labelledby="example-custom-modal-styling-title" className='mt-5'>
                 <Modal.Header closeButton>
                     <Modal.Title id="example-custom-modal-styling-title">
                         Add New User
@@ -445,20 +421,20 @@ function Admin() {
                 </Modal.Header>
                 <Modal.Body>
                     <div class="reveal-modal">
-                        <form className="text-center w-100 mt-5 AUBE">
-                            <div className='rounded p-4 AUB mx-auto'>
+                        <form className="text-center w-100 AUBE">
+                            <div className='rounded mx-auto'>
                                 <p style={{ background: "red", color: "white" }}>{errorDesc}</p>
-                                <input type="email" className=" p-1 border-dark fw-bold mx-auto border-0 border-bottom LSin"
+                                <input type="email" className=" p-1 border-dark fw-bold mx-auto border-2 border-bottom LSin"
                                     placeholder="User ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
-                                <input type="text" className=" p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin"
+                                <input type="text" className=" p-1 border-dark fw-bold mx-auto mt-2 border-2 border-bottom LSin"
                                     placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required /><br></br>
-                                <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                                <input type="password" className=" p-1 border-dark fw-bold mt-2 mx-auto border-2 border-bottom LSin"
                                     placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
                                 <br></br>
-                                <input type="password" id='confP' className="p-1 border-dark fw-bold mt-2 mx-auto border-0 border-bottom LSin"
+                                <input type="password" id='confP' className="p-1 border-dark fw-bold mt-2 mx-auto border-2 border-bottom LSin"
                                     placeholder="Confirm Password" value={confPass} onChange={(data) => setConfPass(data.target.value)} required />
                                 <br></br>
-                                <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-0 border-bottom LSin LSdd' value={role}
+                                <select className=' p-1 border-dark fw-bold mx-auto mt-2 border-2 border-bottom LSin LSdd ' style={{ width: "262px" }} value={role}
                                     onChange={(data) => setRole(data.target.value)} required>
                                     <option value="Role">Select Role</option>
                                     <option value="Lead">Lead</option>

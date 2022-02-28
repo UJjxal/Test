@@ -557,7 +557,6 @@ a:link {
 
 .AUBE {
   width: 1100px;
-  margin-top: 400px !important;
 }
 
 .AUC {
@@ -586,14 +585,35 @@ a:link {
 }
 
 .errorMSG {
+  margin-top: 30px;
   text-align: center;
   z-index: 1;
   max-width: 500px;
   border-radius: 15px;
-  color: white;
+  color: #dc3545;
   position: absolute;
   left: 0;
   right: 0;
   width: fit-content;
   opacity: 0;
+  font-weight: 500;
+  border: #dc3545 2px solid;
+  background-color: #ebd9da;
+}
+
+.successMSG{
+  margin-top: 30px;
+  text-align: center;
+  z-index: 1;
+  max-width: 500px;
+  border-radius: 15px;
+  color: green;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  opacity: 0;
+  font-weight: 500;
+  border: green 2px solid;
+  background-color: rgb(207, 213, 230);
 }

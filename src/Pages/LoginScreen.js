@@ -40,8 +40,18 @@ function LoginScreen() {
         //check if email correct
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-        if (!regex.test(id)) {
-            $('.errorMSG').text("Enter correct Email!").animate({ opacity: '1' }, "slow");
+        if (id == '') {
+            $('.errorMSG').text("Please enter Email ID").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (!regex.test(id)) {
+            $('.errorMSG').text("Enter correct Email").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (pass == '') {
+            $('.errorMSG').text("Please enter Password").animate({ opacity: '1' }, "slow");
             setTimeout(function () {
                 $('.errorMSG').animate({ opacity: '0' }, "slow");
             }, 3000);
@@ -49,7 +59,6 @@ function LoginScreen() {
             authenticate();
         }
     }
-
 
     const authenticate = () => {
         const bodyFormData = new FormData();
@@ -66,15 +75,20 @@ function LoginScreen() {
                     username: 'user_client_app',
                     password: 'password',
                 },
-
                 data: bodyFormData,
                 url: 'http://localhost:9080/api/oauth/token',
             }
         ).then(function (res) {
             setToken(res.data);
-            toaster.success("Login successful!")
+            $('.successMSG').text("Login successful").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.successMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         }).catch(function (err) {
-            toaster.warning(err.response.data.error_description)
+            $('.errorMSG').text(err.response.data.error_description).animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         });
     }
 
@@ -101,14 +115,13 @@ function LoginScreen() {
         }
     }
 
-
-
     $(document).ready(function () {
     });
 
     return (
         <div className="LSmain">
-            <p className="mx-auto mt-3 px-3 py-1 bg-danger errorMSG"></p>
+            <p className="mx-auto px-3 py-1 errorMSG"></p>
+            <p className="mx-auto px-3 py-1 successMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className="LSmain py-5">
                 <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100 text-center">
