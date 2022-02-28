@@ -23,9 +23,15 @@ function LoginScreen() {
         var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
         if (!regex.test(id)) {
-            alert("Enter correct Email!!!")
-        } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
-            alert("Enter official ID")
+            $('.errorMSG').text("Enter correct Email!").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
+        } else if (id != "admin@incedoinc.com" || pass != "Bluecat@2804") {
+            $('.errorMSG').text("Invalid Credentials").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else {
             if (id != "admin@incedoinc.com") {
                 navigate("/Dashboard");
@@ -36,11 +42,11 @@ function LoginScreen() {
     }
 
     $(document).ready(function () {
-
     });
 
     return (
         <div className="LSmain">
+            <p className="mx-auto mt-3 px-3 py-1 bg-danger errorMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className="LSmain py-5">
                 {/* <img src="./background.jpg" className="position-fixed bgImg "></img> */}
@@ -58,7 +64,6 @@ function LoginScreen() {
                         <button type="submit" className="mt-4 LSbtn" onClick={(event) => onLogin(event)}>Login
                         </button>
                         <br></br>
-
                     </form>
                     <div className="d-inline-flex LSbs">
                         <p className="mb-0">New User?</p>

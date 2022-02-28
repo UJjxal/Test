@@ -216,6 +216,7 @@ thead>tr>th {
   color: white;
   padding: 2px 20px !important;
   font-size: 15px !important;
+  width: 100px;
 }
 
 .aTBtn:hover {
@@ -272,6 +273,7 @@ thead>tr>th {
   position: relative;
   margin: 0 auto;
   top: 25%;
+
 }
 
 .asdf {
@@ -437,8 +439,7 @@ a:link {
     height: 40px;
   }
 
-  .LSbtn {
-  }
+  .LSbtn {}
 }
 
 @media only screen and (max-height: 700px) {
@@ -547,4 +548,52 @@ a:link {
     font-size: 13px;
     padding: 3px 20px;
   }
+}
+
+.AUB {
+  background-color: #cfcfcf;
+  width: fit-content;
+}
+
+.AUBE {
+  width: 1100px;
+  margin-top: 400px !important;
+}
+
+.AUC {
+  color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.AUC:hover {
+  background-color: white;
+  color: #dc3545;
+}
+
+.AUBE input {
+  padding: 5px 15px !important;
+}
+
+.btnCol {
+  width: 170px;
+}
+
+.delBtn:hover {
+  border: 1px solid #dc3545;
+  background-color: white !important;
+  color: #dc3545;
+}
+
+.errorMSG {
+  text-align: center;
+  z-index: 1;
+  max-width: 500px;
+  border-radius: 15px;
+  color: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: fit-content;
+  opacity: 0;
 }

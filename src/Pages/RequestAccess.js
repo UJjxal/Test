@@ -21,14 +21,25 @@ export default function RequestAccess() {
         let strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
         if (!regex.test(id)) {
-            alert("Enter correct Email!!")
+            $('.errorMSG').text("Enter correct Email!").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else if (id.slice(id.lastIndexOf('@') + 1) != "incedoinc.com") {
-            alert("Enter official ID!!")
+            $('.errorMSG').text("Enter official ID!").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else if (!strongPassword.test(pass)) {
-            alert("Password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters")
-            $('.wpM').show();
+            $('.errorMSG').text("Password must contain at least 8 characters, at least 1 number and both lowercase and uppercase letters and special characters!").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         } else if (role == "Select Role") {
-            alert("Please select role!!")
+            $('.errorMSG').text("Please select role!").animate({ opacity: '1' }, "slow");
+            setTimeout(function () {
+                $('.errorMSG').animate({ opacity: '0' }, "slow");
+            }, 3000);
         }
     }
 
@@ -43,6 +54,7 @@ export default function RequestAccess() {
 
     return (
         <div>
+            <p className="mx-auto mt-3 px-3 py-1 bg-danger errorMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className='LSmain py-5'>
                 <div className="rounded shadow px-5 pt-3 pb-0 mx-5 bg-white LSdiv h-100 text-center">
@@ -56,7 +68,6 @@ export default function RequestAccess() {
                             placeholder="Name" value={name} onChange={(data) => setName(data.target.value)} required /><br></br>
                         <input type="password" className="RSin"
                             placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
-                        {/* <a>Password should be 8 characters long and must contain one Uppercase, Lowercase, number and symbol</a> */}
                         <br></br>
                         <input type="password" id='confP' className="RSin"
                             placeholder="Confirm Password" value={confPass} onChange={(data) => setConfPass(data.target.value)} required />
@@ -68,7 +79,6 @@ export default function RequestAccess() {
                             <option value="Admin">Admin</option>
                             <option value="Developer">Developer</option>
                         </select><br></br>
-                        {/* <p className="wpM" style={{ fontSize: "12px", color: 'red' }}>Choose a strong password</p> */}
                         <button type="submit" className="LSbtn" onClick={(event) => onRequest(event)}>Request Access
                         </button>
                         <br></br>
