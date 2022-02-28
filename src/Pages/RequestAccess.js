@@ -113,6 +113,7 @@ export default function RequestAccess() {
 
     return (
         <div>
+            <p className="mx-auto px-3 py-1 errorMSG"></p>
             <p className="mx-auto px-3 py-1 successMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className='LSmain py-5'>
@@ -120,7 +121,6 @@ export default function RequestAccess() {
                     <p className="w-auto fw-bold LScT">AssetMark - Shift Allowance</p>
                     <form className="text-center LSfm">
                         <p className="text-center LSsT">Request Access</p>
-                        <p className="w-25 mx-auto LSdes">Hello there! Request Access for your account</p>
                         <input type="email" className="RSin"
                             placeholder="Email ID" value={id} onChange={(data) => setId(data.target.value)} required ></input><br></br>
                         <input type="text" className="RSin"
@@ -140,7 +140,6 @@ export default function RequestAccess() {
                         </select><br></br>
                         <button type="submit" className="LSbtn" onClick={(event) => onRequest(event)}>Request Access
                         </button>
-                        <p className="mx-auto px-3 py-1 mt-1 errorMSG"></p>
                         <br></br>
 
                     </form>

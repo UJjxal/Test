@@ -338,8 +338,8 @@ function Admin() {
                                 <td>{obj.role}</td>
                                 <td><select value={obj.status} onChange={(evt) => handleChange(evt.target.value, obj, "status")} className=' p-1 border-dark fw-bold mx-auto border-1 rounded border-bottom LSdd'>
                                     <option value={obj.status}>{obj.status}</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Inactive">Inactive</option>
+                                    <option value="Active" hidden={obj.status == 'Active'}>Active</option>
+                                    <option value="Inactive" hidden={obj.status == 'Inactive'}>Inactive</option>
                                 </select></td>
                                 <td>
                                     <button id={obj.userId + "btn"} onClick={() => modifyRecord(obj)} disabled={obj.confirm === true && obj.status !== "Requested" && obj.status !== "Locked" ? false : true} className="aTBtn" value={"UserID"}>Confirm</button>

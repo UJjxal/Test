@@ -476,7 +476,7 @@ a:link {
 
   .LSdes {
     font-size: 13px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .RSin {
@@ -585,13 +585,13 @@ a:link {
 }
 
 .errorMSG {
-  margin-top: 20px;
+  margin-top: 18vh;
   text-align: center;
   z-index: 1;
   max-width: 500px;
   border-radius: 15px;
   color: #dc3545;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   width: fit-content;

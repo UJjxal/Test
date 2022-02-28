@@ -119,7 +119,7 @@ function LoginScreen() {
 
     return (
         <div className="LSmain">
-            
+            <p className="mx-auto px-3 py-1 errorMSG"></p>
             <p className="mx-auto px-3 py-1 successMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className="LSmain py-5">
@@ -128,15 +128,13 @@ function LoginScreen() {
                     <form className="text-center LSfm">
                         <p className="text-center LSsT">Sign In</p>
                         <p className="w-25 mx-auto LSdes">Hello there! Sign in and start managing your shift Allowance</p>
-                        <br></br>
                         <input type="email" className="LSin" placeholder="Email ID" value={id}
                             onChange={(data) => setId(data.target.value)} required ></input><br></br>
                         <input type="password" className="LSin"
                             placeholder="Password" value={pass} onChange={(data) => setPass(data.target.value)} required />
                         <br></br>
-                        <button type="submit" className="mt-4 LSbtn" onClick={(event) => onLogin(event)}>Login
+                        <button type="submit" className="LSbtn" onClick={(event) => onLogin(event)}>Login
                         </button>
-                        <p className="mx-auto px-3 py-1 errorMSG"></p>
                         <br></br>
                     </form>
                     <div className="d-inline-flex LSbs">
