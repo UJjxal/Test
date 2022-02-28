@@ -119,7 +119,7 @@ function LoginScreen() {
 
     return (
         <div className="LSmain">
-            <p className="mx-auto px-3 py-1 errorMSG"></p>
+            
             <p className="mx-auto px-3 py-1 successMSG"></p>
             <img className='m-3 position-absolute' src={logo} height="15px"></img>
             <div className="LSmain py-5">
@@ -136,6 +136,7 @@ function LoginScreen() {
                         <br></br>
                         <button type="submit" className="mt-4 LSbtn" onClick={(event) => onLogin(event)}>Login
                         </button>
+                        <p className="mx-auto px-3 py-1 errorMSG"></p>
                         <br></br>
                     </form>
                     <div className="d-inline-flex LSbs">

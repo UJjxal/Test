@@ -266,7 +266,7 @@ function Admin() {
             $(".uaF").show();
             $(".Dashboard").hide();
         })
-        
+
     });
 
     return (
