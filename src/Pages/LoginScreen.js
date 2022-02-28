@@ -107,7 +107,6 @@ function LoginScreen() {
     }
 
     const redirect = () => {
-        console.log(user)
         if (user.role === "Admin") {
             navigate("/Admin", { state: { user: user, token: token } })
         } else if (user.role === "Lead" || user.role === "Developer") {

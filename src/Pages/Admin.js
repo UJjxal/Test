@@ -1,6 +1,6 @@
 import $ from 'jquery'
 import { useNavigate, useLocation } from "react-router";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import HeaderAdmin from '../Components/HeaderAdmin';
 import Footer from '../Components/Footer';
 import Dashboard from './Dashboard';
@@ -8,6 +8,7 @@ import Table from './Table';
 import axios from 'axios';
 import { toaster } from 'evergreen-ui';
 import Modal from 'react-bootstrap/Modal';
+import { useTable, usePagination } from 'react-table'
 
 function Admin() {
 
@@ -18,7 +19,6 @@ function Admin() {
     const [show, setShow] = useState(false);
 
     const [errorDesc, setErrorDesc] = useState("");
-
 
     useEffect(() => {
         getUsers();
@@ -115,7 +115,7 @@ function Admin() {
         {
             Header: 'Date',
             Footer: 'date',
-            accessor: 'date',
+            accessor: 'activeFrom',
 
         },
         {
@@ -127,145 +127,55 @@ function Admin() {
             Header: 'Status',
             Footer: 'Status',
             accessor: 'status',
-
+            Cell: ({ cell }) => (
+                <select value={cell.row.values.status} onChange={(evt) => handleChange(evt.target.value, cell.row.values, "status")} className=' p-1 border-dark fw-bold mx-auto border-1 rounded border-bottom LSdd'>
+                    <option value={cell.row.values.status}>{cell.row.values.status}</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+            )
+        },
+        {
+            Header: 'Action',
+            Footer: 'Status',
+            Cell: ({ cell }) => (
+                <div>
+                    <button id={cell.row.values.userId + "btn"} onClick={() => modifyRecord(cell.row.values)} disabled={cell.row.values.confirm === true && cell.row.values.status !== "Requested" && cell.row.values.status !== "Locked" ? false : true} className="aTBtn" value={"UserID"}>Confirm</button>
+                    <br></br>
+                    <button id={cell.row.values.userId + "btnD"} className="aTBtn mt-2 bg-danger delBtn" value={"UserID"} hidden={cell.row.values.status != 'Inactive'}>Delete</button>
+                </div>
+            )
         },
     ]
 
-    const DATA = [
+    const columns = useMemo(() => COLUMNS, [])
+    const data = useMemo(() => records, [])
+
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        page,
+        nextPage,
+        previousPage,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        state,
+        gotoPage,
+        pageCount,
+        setPageSize,
+        prepareRow
+    } = useTable(
         {
-            "userId": "9392",
-            "name": "Viki",
-            "date": "10-07-2021",
-            "role": "Admin",
-            "status": "Active"
+            columns,
+            data,
+            initialState: { pageIndex: 0 }
         },
-        {
-            "userId": "6099",
-            "name": "Correy",
-            "date": "27-08-2006",
-            "role": "Admin",
-            "status": "Active"
-        },
-        {
-            "userId": "7408",
-            "name": "Lonnie",
-            "date": "25-03-1997",
-            "role": "Admin",
-            "status": "Inactive"
-        },
-        {
-            "userId": "5204",
-            "name": "Lila",
-            "date": "07-06-2017",
-            "role": "Admin",
-            "status": "Inactive"
-        },
-        {
-            "userId": "2726",
-            "name": "Hildegaard",
-            "date": "21-05-1991",
-            "role": "Developer",
-            "status": "Active"
-        },
-        {
-            "userId": "1476",
-            "name": "Tiffie",
-            "date": "25-01-1984",
-            "role": "Lead",
-            "status": "Active"
-        },
-        {
-            "userId": "9386",
-            "name": "Emilia",
-            "date": "02-03-1980",
-            "role": "Admin",
-            "status": "Active"
-        },
-        {
-            "userId": "4156",
-            "name": "Vanessa",
-            "date": "04-10-1989",
-            "role": "Developer",
-            "status": "Active"
-        },
-        {
-            "userId": "2807",
-            "name": "Kalina",
-            "date": "15-01-2008",
-            "role": "Lead",
-            "status": "Requested"
-        },
-        {
-            "userId": "1476",
-            "name": "Emilia",
-            "date": "19-03-2015",
-            "role": "Admin",
-            "status": "Inactive"
-        },
-        {
-            "userId": "9397",
-            "name": "Aryn",
-            "date": "02-08-1993",
-            "role": "Developer",
-            "status": "Inactive"
-        },
-        {
-            "userId": "1653",
-            "name": "Emelina",
-            "date": "05-03-2016",
-            "role": "Admin",
-            "status": "Requested"
-        },
-        {
-            "userId": "7622",
-            "name": "Zsa Zsa",
-            "date": "16-04-1983",
-            "role": "Lead",
-            "status": "Requested"
-        },
-        {
-            "userId": "9216",
-            "name": "Joelly",
-            "date": "16-02-1995",
-            "role": "Admin",
-            "status": "Requested"
-        },
-        {
-            "userId": "8881",
-            "name": "Louella",
-            "date": "25-11-2000",
-            "role": "Lead",
-            "status": "Active"
-        },
-        {
-            "userId": "5066",
-            "name": "Robbi",
-            "date": "19-03-1988",
-            "role": "Developer",
-            "status": "Requested"
-        },
-        {
-            "userId": "2987",
-            "name": "Xylina",
-            "date": "20-02-1989",
-            "role": "Lead",
-            "status": "Inactive"
-        },
-        {
-            "userId": "7739",
-            "name": "Cherilyn",
-            "date": "12-01-1987",
-            "role": "Developer",
-            "status": "Active"
-        },
-        {
-            "userId": "141",
-            "name": "Fawne",
-            "date": "29-08-1997",
-            "role": "Admin",
-            "status": "Active"
-        }
-    ]
+        usePagination
+    )
+
+    const { pageIndex, pageSize } = state
 
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -324,8 +234,6 @@ function Admin() {
         }
     }
 
-
-
     const navigate = useNavigate();
 
     const onLogout = (event) => {
@@ -333,12 +241,6 @@ function Admin() {
     }
 
     $(document).ready(function () {
-        for (let index = 0; index < DATA.length; index++) {
-            if (DATA.at(index).status != "Requested") {
-                $("#" + DATA.at(index).userId + "btn").prop("disabled", true);
-            }
-        }
-
         if (pass != confPass) {
             $('#confP').css('color', 'red')
         } else {
@@ -364,6 +266,7 @@ function Admin() {
             $(".uaF").show();
             $(".Dashboard").hide();
         })
+        
     });
 
     return (
@@ -371,6 +274,50 @@ function Admin() {
             <HeaderAdmin />
             <div className='container uaF'>
                 <h1 className="rounded shadow-sm text-center mx-auto my-3 py-2 border border-1 border-dark bg-white">User Administration</h1>
+                {/* <table className="table table-bordered mt-3 text-center " {...getTableProps()}>
+                    <thead>
+                        {headerGroups.map(headerGroup => (
+                            <tr {...headerGroup.getHeaderGroupProps()}>
+                                {headerGroup.headers.map(column => (
+                                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                                ))}
+                            </tr>
+                        ))}
+                    </thead>
+                    <tbody {...getTableBodyProps()}>
+                        {page.map(row => {
+                            prepareRow(row)
+                            return (
+                                <tr className='bg-white' {...row.getRowProps()}>
+                                    {row.cells.map(cell => {
+                                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                    })}
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+                <div className='tBtns'>
+                    <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} className='LSbtn'>{'ᐸᐸ'}</button>
+                    <button onClick={() => previousPage()} disabled={!canPreviousPage} className='LSbtn'>Previous</button>
+                    <button onClick={() => nextPage()} disabled={!canNextPage} className='LSbtn'>Next</button>
+                    <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} className='LSbtn'>{'ᐳᐳ'}</button>
+                    <span className='mx-2'>
+                        Page
+                        <strong>
+                            {pageIndex + 1} of {pageOptions.length}
+                        </strong>
+                    </span>
+                    <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))} className='LSbtn'>
+                        {[10, 25, 50].map(pageSize => (
+                            <option key={pageSize} value={pageSize} >
+                                Show {pageSize}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+ */}
+
                 <table className="table table-bordered mt-3 text-center">
                     <thead>
                         <tr>
@@ -390,7 +337,7 @@ function Admin() {
                                 <td>{obj.activeFrom}</td>
                                 <td>{obj.role}</td>
                                 <td><select value={obj.status} onChange={(evt) => handleChange(evt.target.value, obj, "status")} className=' p-1 border-dark fw-bold mx-auto border-1 rounded border-bottom LSdd'>
-                                    <option value="Active">{obj.status}</option>
+                                    <option value={obj.status}>{obj.status}</option>
                                     <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
                                 </select></td>
